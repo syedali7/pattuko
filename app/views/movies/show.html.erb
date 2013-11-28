@@ -1,0 +1,86 @@
+<div class="artist_container">
+    <div class="float_L w100">
+        <div class="float_L">
+            <ul class="artist_menu float_L">
+                <li><%=link_to @movie.name ,movie_path(@movie)%></li>
+                <li><a href="javascript:;"id="photos-<%= @movie.id %>">Photos</a></li>
+                <li><a href="javascript:;">Video's</a></li>
+                <li><a href="javascript:;" class="active">Movies</a></li>
+                <li><a href="javascript:;">Fans(<%= @movie.fans_count %>)</a></li>
+                <li><a href="javascript:;" id = "activities-<%= @movie.id %>">Posts(<%= @movie.total_posts %>)</a></li>
+                <input type = "hidden" id ="posts" value= "<% @movie.id %>"> 
+            </ul>
+            <ul class="artist_social float_L">
+                <li><a href="/users/auth/facebook" class="artist_fb"></a></li>
+                <li><a href="javascript:;" class="artist_tw"></a></li>
+                <li><a href="javascript:;" class="artist_pi"></a></li>
+            </ul>
+            <% if current_user %>        
+                 <% unless @movie.fans.collect(&:user_id).include?(current_user.id) %>
+                    <input type="button" id = "movie_fan-" class="cmn_btn mt25" value="I'm Fan">
+                    <input type = "hidden" id ="movie_id" value = "<%=@movie.id%>">
+                    <input type = "hidden" id = "user_id" value = "<%=current_user.id%>">
+                <% end %>
+            <% end %>    
+        </div>
+    </div>
+  
+  <!-- movie page container -->
+    <div id = "main" class="new_mov_cont w100">
+        <div class="mov_left_section float_L"> 
+            <%= image_tag(@movie.movie_image.url(:medium), :class_name => 'mov_image float_L') %>
+            <div class="float_L well_known"> 
+                <input type = "hidden" id = "fan_count" value = "<%= @movie.fans_count %>">
+                <span class="float_L ml30" id = "fans"><%= @movie.fans_count%><b>fans</b></span>
+                <img src="<%= @movie.artist_image %>"class="well_known_img"> 
+                <span class="float_R mr30">1024<b>followers</b></span> 
+            </div>
+            <h1 class="mov_title float_L"><%=@movie.name%></h1>
+            <p class="mov_desc float_L"><%=@movie.description %></p>
+        </div>
+        <%= render "movies/discussions" %>
+        <div class="mov_right_section float_R">
+            <% artists = [@movie.hero, @movie.heroine, @movie.director, @movie.music_director] %>
+            <% artists.each_with_index do |artist,index| %>
+                <div class="artist_item float_L">
+                    <%=link_to image_tag(artist.artist_image.url(:medium),:class => 'artist_item_img float_L'), artist_path(artist) %>
+                    <span class="star_icon float_L"></span>
+                    <label class="sample_label">
+                    <%= (index==0)?('Hero'):((index==1)?('Heroine'):((index==2)?('Director'):"MusicDirector")) %>
+                    </label>
+                    <h2><%= link_to truncate(artist.name, length: 15), artist_path(artist) %></h2>
+                    <label class="sample_label float_L">Famous for</label>
+                    <ul class="famous_for float_L">
+                        <% Movie.famus_movies(artist) %>
+                        <% movieids = artist.movies.order(" score desc").pluck(:id) %>
+                        <% movieids.first(4).each do |mid| %>
+                            <% unless mid == @movie.id %>
+                                <li><%= link_to truncate(Movie.find(mid).name, length: 14), movie_path(mid) %></li>
+                            <% end %>
+                        <% end %>                  
+                    </ul>
+                    <label class="sample_label float_L">Top Fans</label>
+                    <ul class="top_fans_list float_L">
+                        <% unless artist.fans.nil? %>
+                            <% artist.fans.limit(4).each do |af|%>
+                                <%# user = User.find(af.user_id)%>
+                                <% unless af.user_id.nil? %>
+                                    <li><img src="<%=User.find(af.user_id).image_url %>"></li>
+                                <% end %>
+                                
+                            <% end %>
+                        <% end %>  
+                    </ul>
+                    <div class="artist_bottom float_L"> 
+                        <span class="float_L">786<b>Discussions</b></span>
+                        <span class="float_R"><%= artist.fans.length %><b>Fans</b></span> 
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+  <!-- movie page container --> 
+  
+</div>
+</body>
+</html>

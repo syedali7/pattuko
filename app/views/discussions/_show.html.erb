@@ -1,0 +1,19 @@
+<ul class="float_L disc_thread_link">
+	<li class="active" > <img src=<%= @selected_disc.user.image_url %> class="disc_usr_image">
+	  <div class="float_R disc_thread_text">
+	    <p><%= raw(@selected_disc.title) %><span class="user_name"><%= @selected_disc.user.username %></span></p>
+	    <span><%= @selected_disc.discription %></span>
+	    <div class="float_L w100">
+	      <div class="float_R thread_details"><span class="thread_date">52 mins ago</span><span class="thread_members">22</span></div>
+	    </div>
+	  </div>
+	</li>
+</ul>
+<P class="discus_img float_L">
+	<% if @selected_disc.image %>
+		<img src=<%= @selected_disc.image.image_url %> >
+	<% end %>
+</P>
+<P class=" disc_main_text float_L">
+<%= @selected_disc.discription %>
+</P>

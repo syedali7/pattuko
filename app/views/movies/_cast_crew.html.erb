@@ -1,0 +1,96 @@
+<%unless current_user.nil?%>
+
+    <ul>
+        <% unless @movie.hero.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.hero)%>"><img src="<%= @movie.hero.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L"><strong title="Pavan Kalyan"><%= link_to @movie.hero.name, artist_path(@movie.hero) %></strong></br>Hero</p><br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.hero.id%>">Fans : <%= @movie.hero.fans.count %></p>
+                <input class="float_R cmn_btn" id="artist_fans-<%= @movie.hero.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>
+        <% end %>
+        <% unless @movie.heroine.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.heroine)%>"><img src="<%= @movie.heroine.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.heroine.name, artist_path(@movie.heroine) %></strong></br>Heroine</p> <br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.heroine.id%>" >Fans : <%= @movie.heroine.fans.count %></p>
+                <input class="float_R cmn_btn" id="artist_fans-<%= @movie.heroine.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+        <% unless @movie.director.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.director)%>"><img src="<%= @movie.director.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.director.name, artist_path(@movie.director) %></strong></br>Director</p> <br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.director.id %>" >Fans : <%= @movie.director.fans.count %></p>
+                <input class="float_R cmn_btn"  id="artist_fans-<%= @movie.director.id%>-<%= current_user.id %>"type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+        <% unless @movie.music_director.nil? %>
+            <li>
+                <figure class="float_L"> <a href="<%= artist_path(@movie.music_director)%>"><img src="<%= @movie.music_director.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.music_director.name, artist_path(@movie.music_director) %></strong></br>Music_director </p><br><br>
+                  <p class="name float_L" id ="load_artistfans-<%=@movie.music_director.id %>" >Fans : <%= @movie.music_director.fans.count %></p>
+                <input class="float_R cmn_btn"id="artist_fans-<%= @movie.music_director.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+     
+        <% unless @movie.producer.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.producer)%>"><img src="<%= @movie.producer.artist_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.producer.name, artist_path(@movie.producer) %></strong></br>producer</p><br><br>
+                  <p class="name float_L" id ="load_artistfans-<%=@movie.producer.id %>" >Fans : <%= @movie.producer.fans.count %></p>
+                <input class="float_R cmn_btn"  id="artist_fans-<%= @movie.producer.id%>-<%= current_user.id %>"type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    </ul>    
+<% else %>
+   <ul>
+        <% unless @movie.hero.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.hero)%>"><img src="<%= @movie.hero.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L"><strong title="Pavan Kalyan"><%= link_to @movie.hero.name, artist_path(@movie.hero) %></strong></br>Hero</p><br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.hero.id%>">Fans : <%= @movie.hero.fans.count %></p>
+                <input class="float_R cmn_btn" id="artist_fans-<%= @movie.hero.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>
+        <% end %>
+        <% unless @movie.heroine.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.heroine)%>"><img src="<%= @movie.heroine.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.heroine.name, artist_path(@movie.heroine) %></strong></br>Heroine</p> <br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.heroine.id%>" >Fans : <%= @movie.heroine.fans.count %></p>
+                <input class="float_R cmn_btn" id="artist_fans-<%= @movie.heroine.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+        <% unless @movie.director.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.director)%>"><img src="<%= @movie.director.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.director.name, artist_path(@movie.director) %></strong></br>Director</p> <br><br>
+                <p class="name float_L" id ="load_artistfans-<%=@movie.director.id %>" >Fans : <%= @movie.director.fans.count %></p>
+                <input class="float_R cmn_btn"  id="artist_fans-<%= @movie.director.id%>-<%= current_user.id %>"type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+        <% unless @movie.music_director.nil? %>
+            <li>
+                <figure class="float_L"> <a href="<%= artist_path(@movie.music_director)%>"><img src="<%= @movie.music_director.artist_profile_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.music_director.name, artist_path(@movie.music_director) %></strong></br>Music_director </p><br><br>
+                  <p class="name float_L" id ="load_artistfans-<%=@movie.music_director.id %>" >Fans : <%= @movie.music_director.fans.count %></p>
+                <input class="float_R cmn_btn"id="artist_fans-<%= @movie.music_director.id%>-<%= current_user.id %>" type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    
+     
+        <% unless @movie.producer.nil? %>
+            <li>
+                <figure class="float_L"><a href="<%= artist_path(@movie.producer)%>"><img src="<%= @movie.producer.artist_image %>" width="50" height="50"></a></figure>
+                <p class="name float_L" ><strong title="Pavan Kalyan"><%= link_to @movie.producer.name, artist_path(@movie.producer) %></strong></br>producer</p><br><br>
+                  <p class="name float_L" id ="load_artistfans-<%=@movie.producer.id %>" >Fans : <%= @movie.producer.fans.count %></p>
+                <input class="float_R cmn_btn"  id="artist_fans-<%= @movie.producer.id%>-<%= current_user.id %>"type="submit" value="I'm Fan">
+              </li>  
+        <% end %>
+    </ul>
+<%end%>    

@@ -1,0 +1,99 @@
+<%# @movie.each do |movie| %>
+	<%if @movie.hero.nil? || @movie.heroine.nil? || @movie.director.nil? || @movie.producer.nil? || @movie.music_director.nil? || Movie.find(@movie).realesed_at.nil?%>
+		<table style = "background-color:#D8D8D8">
+		<td style="width:200px">
+			<%=@movie.name%>
+		</td>
+		<% ArtistType.all.each do |artist_type| %>
+		  	
+	      	<% if artist_type.name == "Directed by" %>
+	      		<td style="width:100px">
+	      			<% unless @movie.director.nil? %>
+			        	<%= label_tag :artist_type, artist_type.name %>
+			        	<div><%= @movie.director.name %></div>
+			        	<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+			        	<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% else %>
+						<%= label_tag :artist_type, artist_type.name %>
+						<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+						<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% end %>        	
+	        	</td>
+	        <% elsif artist_type.name == "Produced by" %>
+	      		<td style="width:100px">
+	      			<% unless @movie.producer.nil? %>
+			        	<%= label_tag :artist_type, artist_type.name %>
+			        	<div><%= @movie.producer.name %></div>
+			        	
+			        	<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+			        	<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% else %>
+						<%= label_tag :artist_type, artist_type.name %>
+						<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+						<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% end %>        	
+	        	</td>
+	        <% elsif artist_type.name == "Original Music by" %>
+	      		<td style="width:100px">
+	      			<% unless @movie.music_director.nil? %>
+			        	<%= label_tag :artist_type, artist_type.name %>
+			        	<div><%= @movie.music_director.name %></div>
+			        	
+			        	<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+			        	<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% else %>
+						<%= label_tag :artist_type, artist_type.name %>
+						<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+						<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% end %>        	
+	        	</td>	
+
+	       	<% elsif artist_type.name == "Heroine"%>
+	      		<td style="width:100px">
+	      			<% unless @movie.heroine.nil? %>
+			        	<%= label_tag :artist_type, artist_type.name %>
+			        	<div><%= @movie.heroine.name %></div>
+			        	<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+			        	<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% else %>
+						<%= label_tag :artist_type, artist_type.name %>
+						<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+						<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% end %>        	
+	        	</td> 	
+	      	<% elsif artist_type.name == "Hero" %>
+	        	<td style="width:100px">
+	      			<% unless @movie.hero.nil? %>
+			        	<%= label_tag :artist_type, artist_type.name %>
+			        	<div><%= @movie.hero.name %></div>
+			        	<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+			        	<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% else %>
+						<%= label_tag :artist_type, artist_type.name %>
+						<div><input type="text" class = "bigdrop" id = "artist_select_dropdown-<%= @movie.id %>-<%= artist_type.id %>" style="width: 200px;"></div>
+						<div> <input type="text" id = "artist_score-<%= @movie.id %>-<%= artist_type.id %>" style="width:50px;"placeholder = "score"></div>
+					<% end %>        	
+	        	</td>
+	        <% else %>
+	       
+	        <% end %>	
+		<% end %>
+		<td> 
+			<label>score</label>
+			<input type="text" id = "movie_score-<%= @movie.id %>" style="width:50px;">
+		</td>
+		<td> 
+			<label>realesed_date</label>
+			<input type="text" id = "realeased_date-<%= @movie.id %>" style="width:50px;">
+		</td>
+		<td> 
+			<label>exp_date</label>
+			<input type="text" id = "exp_date-<%= @movie.id %>" style="width:50px;">
+		</td>			
+		<td> 
+	    	<button id = "movie_artist_update-<%= @movie.id %>"> Update</button>
+	    </td>   
+		</table>	
+	
+	<% end %>	
+<%# end %>

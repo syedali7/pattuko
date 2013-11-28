@@ -1,0 +1,12 @@
+<h1 class='message' style='display:none'> Wait untill process completes ........</h1>
+<div class='bulk_edit'>
+	<%= form_tag 'javascript:void(0)' do %>
+	    <%= label_tag :movie %>
+	    <% movies = Movie.where(:edited => 1)%>
+	    <%= select_tag :movie, options_from_collection_for_select( movies,'id', 'name'),{ include_blank: 'select movie to edit' }%>
+	    <!-- description text field tag -->
+	    <%= text_field_tag :description ,'',:id =>"description",:placeholder => 'description' %>
+        <div class='movie_details'></div>
+        <%= link_to "Update Movie Artist", "#", :id => 'update_movie_artist'   %>
+	<% end %>
+</div>

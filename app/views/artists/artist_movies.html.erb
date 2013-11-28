@@ -1,0 +1,39 @@
+<div class="artist_container">
+    <%= render :partial => "artists/show/show_page_menu", :locals => {:artist => @artist} %>
+    <div class="float_L w100 left_side_bar">
+        <%= render :partial => "artists/show/left_side_bar", :locals => {:artist => @artist} %>
+
+        <!-- displaying movies -->
+
+        <ul class="movie_items" style="margin: 0px auto;">
+            <% @movies.each do |movie| %>
+                <li class = "movie-box box">
+                    <a class="overlay animation_class" href="<%= movie_path(movie) %>"></a>
+                    <%= link_to image_tag(asset_path("lazy_img_load.gif"),
+                    :class => 'lazy',
+                    :data => {"original" => movie.image_url_medium}), movie_path(movie) %>
+                    <div class="movie_desc animation_class">
+                        <p class="movie"><%= movie.name  %></p>
+                        <span>
+                            <a href="javascript:void(0)" class="cmn_link">claps 10</a>
+                            <a href="javascript:void(0)" class="cmn_link">Views <%= movie.total_views %></a>
+                            <a href="javascript:void(0)" class="cmn_link">Fans <%= movie.fans.count %></a>
+                        </span>
+                        <% if current_user %>
+                            <% if movie.fans.collect(&:user_id).include?(current_user.id) %>
+                            <% else %>
+                                <input type="button" class="cmn_btn float_R"
+                                 id="index-movie-fan" data-id="<%= movie.id%>-<%= current_user.id %>" value="I'm Fan"/>
+                            <% end %>
+                        <% else %>
+                            <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                                <input type="button" class="cmn_btn float_R" value="I'm Fan"/>
+                            </a>
+                        <% end %>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

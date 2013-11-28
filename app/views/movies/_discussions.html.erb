@@ -1,0 +1,19 @@
+<div class="discussions float_L overwrite_class">
+      <p class="disc_head"><a href="javascript:;" class="float_L add_disc_btn"></a>Discussions of Mahesh Babu<a href="#" class="float_R disc_sett_btn"></a></p>
+      <div class="add_new_desc float_L" style="display:none">
+        <textarea class="add_area_inpt" placeholder="@mahesh babu"></textarea>
+        <p class="float_L add_media"><a href="#" class="add_pho float_L">Add Photo</a><a href="#" class="add_vid float_L">Add Video</a></p>
+        <input type="button" class="post_desc float_R" value="Post">
+      </div>
+      <ul class="desc_item float_L">
+        <%# discussions = Discussions_tagging.where(:tagable_id => @movie.id,:tagable_type => "Movie") %>
+        <%# unless discussions.nil? %>
+          <%# for i in 0...discussions.length %>
+
+            <li> <img src="images/actor1.png"> <span class="float_R desc_item_text"> <a href="#" class="link_text">@devisriprasad</a> is eager for <a href="#" class="link_text">@one</a> Audio Release which will be for this Diwali.</span>
+              <p class="desc_details"><a href="#" class="link_text uname float_L">Rama Krishna</a><a href="#" class="float_L more_link">More</a><span class="retweet_count float_L">10</span><span class="desc_date float_R">2 min ago</span></p>
+            </li>
+          <%# end %>  
+        <%# end %>  
+      </ul>
+    </div>

@@ -1,0 +1,91 @@
+<div class="artist_container">
+  <div class="float_L w100">
+    <div class="float_L">
+      <ul class="artist_menu float_L">
+        <li>Mahesh Babu</li>
+        <li><a href="javascript:;">Photos</a></li>
+        <li><a href="javascript:;">Video's</a></li>
+        <li><a href="javascript:;">Movies</a></li>
+        <li><a href="javascript:;">Fans(12)</a></li>
+        <li><a href="javascript:;">Posts(22)</a></li>
+      </ul>
+      <ul class="artist_social float_L">
+        <li><a href="javascript:;" class="artist_fb"></a></li>
+        <li><a href="javascript:;" class="artist_tw"></a></li>
+        <li><a href="javascript:;" class="artist_pi"></a></li>
+      </ul>
+      <input type="button" class="cmn_btn mt25" value="I'm Fan">
+    </div>
+  </div>
+  <div class="float_L w100">
+    <div class="artist_desc_area float_L"> <img src="images/mahesh.png" width="100" height="100" class="artist_small_thumb">
+      <p>Mahesh Babu<br>
+        Actor/Director/Producer<br>
+        <input class="cmn_btn" type="submit" value="I'm Fan">
+      </p>
+      <div class="divider"></div>
+      <ul class="artist_small_menu">
+        <li class="phts"><a href="#">photos (21)</a></li>
+        <li class="fns"><a href="#">Fans (1234)</a></li>
+        <li class="vds"><a href="#">Videos (12)</a></li>
+        <li class="psts"><a href="#">posts (13)</a></li>
+      </ul>
+    </div>
+    <div class="float_R discus_area"> 
+      <!-- left side discussions part-->
+      <div class="discus_area_left float_L">
+        <div class="float_L disc_head_line"> <a href="javascript:;" class="float_L add_new_disc_btn">Add Discussion</a> <a href="javascript:;" class="float_R new_disc_set_btn"></a> </div>
+        <ul class="float_L disc_thread_link">
+          <% if @discussions.present? %>
+                <% @discussions.each do |d| %>          
+                  <li class=<%= (@selected_disc.id==d.id) ? "active" : "" %> > 
+                    <img src=<%= d.user.image_url %> class="disc_usr_image">
+                    <div class="float_R disc_thread_text" id=<%= d.id %> >
+                      <p><%= raw( d.title ) %><span class="user_name"><%= d.user.username %></span></p>
+                      <span><%= d.discription %></span>
+                      <div class="float_L w100 mt10">
+                        <ul class="float_L tweeter_icons">
+                          <li> <a href="javascript:;"> <img src=<%= d.user.image_url %> > </a> </li>
+                          <li> <a href="javascript:;"> <img src="images/actor1.png"> </a> </li>
+                          <li> <a href="javascript:;"> <img src="images/actor1.png"> </a> </li>
+                          <li> <a href="javascript:;"> <img src="images/actor1.png"> </a> </li>
+                        </ul>
+                        <div class="float_R thread_details"><span class="thread_date">52 mins ago</span><span class="thread_members">22</span></div>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <!-- left side discussions part ends--> 
+      
+      <!-- right side discussions part-->
+      <div class="discus_area_right float_L">
+        <% if @selected_disc.present? %>
+            <ul class="float_L disc_thread_link">
+                <li class="active" > 
+                  <img src=<%= @selected_disc.user.image_url %> class="disc_usr_image">
+                  <div class="float_R disc_thread_text">
+                    <p><%= raw(@selected_disc.title) %><span class="user_name"><%= @selected_disc.user.username %></span></p>
+                    <span><%= @selected_disc.discription %></span>
+                    <div class="float_L w100">
+                      <div class="float_R thread_details"><span class="thread_date">52 mins ago</span><span class="thread_members">22</span></div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            <P class="discus_img float_L">
+              <% if @selected_disc.image.present? %>
+                  <img src=<%= @selected_disc.image.image_url %> >
+              <% end %>
+            </P>
+            <P class=" disc_main_text float_L">
+               <%= @selected_disc.discription %>
+            </P>
+        <% end %>
+      </div>
+      <!-- right side discussions part--> 
+    </div>
+  </div>
+</div>

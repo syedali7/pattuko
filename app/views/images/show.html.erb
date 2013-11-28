@@ -1,0 +1,46 @@
+<section id="content">
+    <div id="container" class="transitions-enabled clearfix">
+    	<div class='user_id' style='display:none'>
+		    <% unless current_user.nil? %>
+		        <%= current_user.id %>
+		    <% end %>    
+		</div>
+		<div class="box col2 ">
+			<p class="image-area fancybox" style = 'cursor:pointer' rel='group' href='<%= @image.image%>' >
+				<%= link_to image_tag(@image.image) %></p>
+		        <div class="comment-list" id="comment-list-<%= @image.id %>">
+		            <ul>
+		                <% @image.comments.each do |comment| %>
+		                    <li>
+		                        <span class="photo">
+		                        	<a href="/user/<%= comment.user.id %>/user_posts">
+			                        	<%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+								    	:class => 'lazy',
+								    	:data => {"original" => 
+								    	image_tag(comment.user.image_url)})%>
+    								</a>
+		                        </span>
+		                        <label>
+	                                <strong><%= comment.user.username %> :</strong>
+	                                <%= comment.body %>
+		                        </label>
+		                    </li>
+		                <% end %>
+		            </ul>
+		        </div>
+		        <% if current_user %> 
+					<div class="comment-area">
+		                <%= form_tag "javascript:void(0)" do %>
+		                    <div>
+		                        <div id='comment-<%= @image.id %>'>
+		                            <%= text_area_tag 'comment[body]', ' ', 
+		                                :placeholder =>'comment Here......' %>
+		                        </div>
+		                        <input name="" class="img-comnt-btn" type="button" >
+		                    </div>
+		                <% end %>
+		            </div>
+		    <% end %>
+		</div>
+    </div>
+</section>

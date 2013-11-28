@@ -1,0 +1,246 @@
+<% set_meta_tags :title => show_page_title(@post),  :description => show_page_description(@post) , 
+    :site => 'Pattuko.com', :reverse => true %>
+
+
+<% if @post.postable_type == "Album" %>
+    <%= render :partial => 'albums/show' %>
+<% else %>
+    <div id="post_container" data-url="post-show">
+        <section class="show_popup">
+            <% if request.xhr? %>
+                <div class="show_popup_header float_L">
+                    <div class="show_popup_close float_L">
+                        <a href="javascript:void(0);" class="float_L"></a>
+                    </div>
+                    <h1 class="float_L"><%= @post.title %></h1>
+                    <div class="float_R">
+                        <div class="show_popup_pagination float_L">
+                            <a href="javascript:void(0);" class="float_L lft previous_post"
+                                data-post-id="<%= @post.links[:prev].es_show_path %>">
+                            </a>
+                        </div>
+                        <div class="show_popup_pagination float_L">
+                            <a href="javascript:void(0);" class="float_L rgt next_post"
+                                data-post-id="<%= @post.links[:next].es_show_path %>">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% else %>
+
+                <% if current_user.nil? %>
+                    <div class="notification_widget">
+                        <span>
+                            <a href="<%=user_omniauth_authorize_path(:facebook)%>">
+                                <%= image_tag('sign_with_fb.png', :height => 35) %>
+                            </a>
+                            to discover more about your favourite artist
+                            <% unless @post.post_artist.nil? %>
+                                <%= link_to @post.post_artist.name, artist_path(@post.post_artist) %>
+                            <% end %>
+                        </span>
+                    </div>
+                <% end %>
+
+                <h1 class="float_L show_post_title"><%= @post.title %></h1>
+
+                <!-- posting_type declaratoin -->
+                <% if @post.posting_type == "Movie" %>
+                    <% posting_type = "Movie" %>
+                    <% movie = Movie.find(@post.posting_id) %>
+                    <% posting_name = Movie.find(@post.posting_id).name %>
+                <% elsif @post.posting_type == "Artist" %>
+                    <% posting_type = "Artist" %>
+                    <% artist = Artist.find(@post.posting_id) %>
+                    <% posting_name = Artist.find(@post.posting_id).name %>
+                <% elsif @post.posting_type == "Event" %>
+                    <% event = Event.find(@post.posting_id) %>
+                    <% if event.eventable_type == "Movie" %>
+                        <% posting_type = "Movie" %>
+                        <% movie = Movie.find(event.eventable_id) %>
+                        <% posting_name = movie.name %>
+                    <% elsif event.eventable_type == "Artist" %>
+                        <% posting_type = "Artist" %>
+                        <% artist = Artist.find(event.eventable_id) %>
+                        <% posting_name = artist.name %>
+                    <% end %>
+                <% end %>
+
+                <nav class="navigation mb10 w100 float_L">
+                    <ul>
+                        <li>
+                            <a href="<%= root_url %>">
+                                <span><b class="home_btn"></b></span>
+                            </a>
+                        </li>
+                        <li>
+                            <% if posting_type == "Movie" %>
+                                    <a href="<%= movies_path %>">
+                            <% elsif posting_type == "Artist" %>
+                                <a href="<%= artists_path %>">
+                            <% elsif posting_type == "Event" %>
+                                <% event = Event.find(@post.posting_id) %>
+                                <% if event.eventable_type == "Movie" %>
+                                    <a href="<%= movies_path %>">
+                                <% elsif event.eventable_type == "Artist" %>
+                                    <a href="<%= artists_path %>">
+                                <% end %>
+                            <% end %>
+                                <span style="float:left; color:#225cc5; "><%= posting_type %></span> 
+                            </a>
+                        </li>
+                        <li>
+                            <% if posting_type == "Movie" %>
+                                <a href="<%= movie_path(movie) %>">
+                            <% elsif posting_type == "Artist" %>
+                                <a href="<%= artist_path(artist) %>">
+                            <% end %>
+                                <span style="float:left;"><%= posting_name %></span>
+                            </a>
+
+                        </li>   
+                        <li class="active">
+                            <a href="javascript:void(0)">
+                                <span style="float:left;"><%= @post.title %></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+            <% end %>
+
+            <div class="show_popup_cont float_L">
+                
+                <div class="show_popup_cont_lft float_L">
+                    <ul class="float_L">
+                        <a href="#" 
+                          onclick="
+                            window.open(
+                              'https://www.facebook.com/sharer/sharer.php?u=www.pattuko.com' + '<%= @post.es_show_path %>', 
+                              'facebook-share-dialog', 
+                              'width=626,height=436'); 
+                            return false;">
+                          <li class="fb"></li>
+                        </a>
+                        <a href="https://twitter.com/share" data-via="itzmeMurali">
+                            <li class="twt"></li>
+                        </a>
+        				<li class="pnt"></li>
+        				<li class="clp"><%= @post.claps.count %></li>
+        				<li class="vie"><%= @post.total_views %></li>
+        				<li class="cmt"><%= @post.comments.count %></li>
+                    </ul>
+                </div>
+
+                <div class="show_popup_cont_rgt float_L">
+                    <div class="show_popup_details float_L">
+                        <% if @post.postable_type == "News" %>
+                            <%= render :partial => 'news/show' %>
+                        <% elsif @post.postable_type == "Video" %>
+                            <%= render :partial => 'videos/show' %>
+                        <% elsif @post.postable_type == "Album" %>
+                            <%= render :partial => 'albums/show' %>
+                        <% elsif @post.postable_type == "Image" %>
+                            <%= render :partial => 'images/show' %>
+                        <% end %>
+                    </div>
+                    <% if session[:admin] %>
+                        <%= link_to "Edit content", post_post_content_edit_path(:post_id => @post.id), 
+                            target: "_blank" %>
+                    <% end %>
+                    <div class="show_popup_reviews float_L">
+                        <%= render :partial => 'posts/post_type_fan', :locals => {:post => @post} %>
+
+                        <%= render :partial => 'posts/people_clapped', :locals => {:claps => @post.claps} %>
+        				
+                        <div class="comments float_L">
+                            <h2 class="secondary_header">Express yourself about this post</h2>
+                            <% if current_user %>
+                                
+                                <div class="comment_area float_L">
+                                    <figure class="float_L">
+                                        <a href="<%= user_path(current_user) %>">
+                                            <img src="<%= current_user.image_url %>" width="35" height="35" alt="Profile">
+                                        </a>
+                                    </figure>
+                                    <textarea class="float_L showpage-comment" id="<%=@post.id%>" placeholder="Add a comment.."></textarea>
+                                </div>
+                                <div class="clearfix"></div>
+                            <% else %>
+                                <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="float_R">Comment this post</a>
+                            <% end %>
+                            <%= render :partial => 'posts/post_comments', :locals => {:post => @post} %>
+                        </div>
+                        <% if false %>
+                            <div class="movie_links float_L">
+                                <h2 class="secondary_header">Recent <%= posting_type(@post).name %> Posts</h2>
+                                <ul class="float_L">
+                                    <% @links.first(3).each do |l| %>
+                                        <li><a href="<%= post_path(l)%>"><%= l.title %></a></li>
+                                    <% end %>
+                                </ul>
+                            </div>
+                        <% end %>
+
+                        <!-- to reflect posting type and posting id in javascript -->
+
+                        <div class='posting_id' style='display:none'>
+                            <%= @post.posting_id %>
+                        </div>
+
+                        <div class='posting_type' style='display:none'>
+                            <%= @post.posting_type %>
+                        </div>
+
+                        <!-- user polling starts -->
+                        <% if session[:admin] %>
+
+                            <% if current_user %>
+                                <% if posting_fan(@post) == true %>                
+                                    <div class="movie_links float_L" id="poll_success_response">
+                                        <h2 class="secondary_header">Polling</h2>
+                                        <a href="javascript:void(0);" id="question-<%= @post.id %>"> Ask Question </a>
+                                        <div class="comment_area float_L polling" id ="textfield-<%= @post.id %>" >
+                                            <textarea class="float_L showpage-comment" id="question_text-<%= @post.id %>" 
+                                             placeholder="Ask Something..."></textarea>
+                                        </div>
+                                        <div class="comment_area float_L answer-options" id ="answer-options-<%= @post.id %>" >
+                                            <% (0...4).each do |count| %>
+                                                <textarea class="float_L showpage-comment" 
+                                                id="answer_text-<%= count %>" placeholder="Add option..."></textarea>
+                                            <% end %>
+                                            <button class ="sub_btn post_poll_button" id="post_poll_button-<%= @post.id %>">
+                                             Post </button>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% end %>
+
+                        <% end %>
+
+                        <!-- user polling ends -->
+                        <%= render :partial => 'posts/post_people_involved', :locals => {:post => @post} %>
+                    </div>
+                </div>
+
+                <span class="box_heading">Related posts</span>
+                <section>
+                    <div class='user_id' style='display:none'>
+                        <% unless current_user.nil? %>
+                            <%= current_user.id %>
+                        <% end %>
+                    </div>
+                    <div id="relatedPosts_container" class="container transitions-enabled clearfix" 
+                        container=true
+                        data-url='/posts/related_posts?post_id=<%= @post.id %>'
+                        data-es-query='{ "bool" : { "must" : [{"term" :{"post_id" : "<%= @post.id %>"} }]} }'>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+<% end %>
+
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>

@@ -1,0 +1,25 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  outline: none;
+}
+
+.filter_container 					{ display: block; width: 250px; top: 62px; font-family:'segoeui',sans-serif; position:fixed; left:0; z-index: 1;}
+.filter_icon      					{ width:auto; border-radius: 0 3px 3px 0; background:rgba(0,0,0,0.5); margin-bottom:10px; cursor:pointer; padding:5px 10px; float:left; color:#fff}
+/* nav menu styles */
+.filter_inner 						{ display: none; width: 250px; margin: 0 auto; background:rgba(0,0,0,0.5); border-radius:3px; float:left; height:auto}
+.selec_item	 						{ float:left; margin:1px 10px 0 0;}
+.filter_inner li 					{ list-style:none; width:100%; float:left}
+.filter_inner > li > a 				{ display: block; padding: 10px 10px; font-size: 13px; color: #ffffff; text-decoration: none; border-bottom: 1px solid #919090; float:left; width:92%}
+.filter_inner > li:hover 			{ background:rgba(0,0,0,0.4);}
+.filter_inner > li > a:hover, .filter_inner > li > a.open { color: #FFF; border-bottom: 1px solid #919090;}
+.filter_inner li ul 				{ display: none; float:left}
+.filter_inner li ul li a 			{ display: block; background: none;  padding-left: 10px; font-size: 13px; text-decoration: none; color: #fff; float:left;}
+.filter_inner li ul li a label 		{ width:240px; float:left;padding: 10px 0px;}
+.filter_inner li ul li a:hover 		{ background:rgba(0,0,0,0.5);}
+.filter_txtfld						{ width: 210px; height: 30px; border-radius: 3px; outline: none; border: 1px solid #ececec; margin:10px 0 10px 10px; font-size: 13px; padding:0 0 0 10px; background:none; color:#fff}
+.filter_txtfld:focus				{ border: 1px solid #86F8AF; box-shadow: 0 0px 5px #8F8F8F;}

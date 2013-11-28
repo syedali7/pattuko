@@ -1,0 +1,103 @@
+<section id="content">
+    <div id="container" class="transitions-enabled clearfix" style="margin: 0 auto;">
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+        <% @post.each do |post| %>
+            <div class="box col2 ">
+                <% if post.postable_type == "News" %>
+                    <%= render :partial => 'news/news', :locals => {:post => post} %>
+                <% elsif post.postable_type == "Video" %>
+                    <%= render :partial => 'videos/video', :locals => {:post => post} %>
+                <% elsif post.postable_type == "Album" %>
+                    <%= render :partial => 'albums/album', :locals => {:post => post} %>
+                <% elsif post.postable_type == "Image" %>
+                    <%= render :partial => 'images/image', :locals => {:post => post} %>
+                <% end %>
+                <div class="comment-list" id="comment-list-<%= post.id %>">
+                    <% unless post.user.nil? %>
+                        <% unless post.comments.empty? %>
+                            <% if post.comments.count >= 3 %> 
+                                <ul>
+                                    <% length = post.comments.length-3,
+                                        post.comments.length-2,post.comments.length-1 %>
+                                    <% length.each do |l| %>
+                                        <li>
+                                            <span class="photo">
+                                                <a href="/user/<%= post.comments[l].user.id %>/user_posts">
+                                                <%= image_tag(post.comments[l].user.image_url)%>
+                                                </a>
+                                            </span>
+                                            <label>
+                                                <a href="/user/<%= post.comments[l].user.id %>/user_posts">
+                                                    <strong><%= post.comments[l].user.username %> :</strong>
+                                                </a>
+                                                    <%= post.comments[l].body %>
+                                            </label>
+                                        </li>
+                                    <% end %>
+                                </ul>
+                                <% if post.comments.count > 3 %>
+                                    <div class="comment-list">  
+                                        <a href="javascript:void(0)">
+                                            <%= link_to 'View All comments', post_path(:id => post.id),
+                                             :class => "all-comnt" %>
+                                        </a>
+                                    </div>
+                                <% end %>
+                            <% else %>
+                                <ul>
+                                    <% unless post.comments.empty? %>
+                                        <% post.comments.each do |comment| %>
+                                            <li>
+                                                <span class="photo">
+                                                    <a href="/user/<%= comment.user.id %>/user_posts">
+                                                    <%= image_tag(asset_path("lazy_img_load.gif"), 
+                                                    :class => 'lazy',
+                                                    :data => 
+                                                    {"original" => comment.user.image_url})%>
+                                                    </a>
+                                                </span>
+                                                <label>
+                                                    <a href="/user/<%= comment.user.id %>/user_posts">
+                                                        <strong><%= comment.user.username %> :</strong>
+                                                    </a>
+                                                        <%= comment.body %>
+                                                </label>
+                                            </li>
+                                        <% end %>
+                                    <% end %>    
+                                </ul>
+                                <% if post.comments.count > 3 %>
+                                    <div class="comment-list">  
+                                        <a href="javascript:void(0)">
+                                            <%= link_to 'View All comments', post_path(:id => post.id), :class => "all-comnt" %>
+                                        </a>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                </div>
+                <% if current_user %>   
+                    <div class="comment-area">
+                        <%= form_tag "javascript:void(0)" do %>
+                            <div>
+                                <div id='comment-<%= post.id %>'>
+                                    <%= text_area_tag 'comment[body]', ' ', 
+                                        :placeholder =>'comment Here......' %>
+                                </div>
+                                <input name="" class="comnt-btn" type="button" >
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>  
+            </div>
+        <% end %>
+    </div>
+</section>
+<div class="pageless-navigation">
+    <a href="/posts?page=2" />
+</div>

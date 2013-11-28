@@ -1,0 +1,21 @@
+<% post.each_with_index do |post, index| %>
+  	<% unless post.postable_type =='Album' && post.postable_type == 'Video' %>
+		<li class="float_L">
+	  		<p class="trend_head"><%= post.title %></p>
+  			<% if post.postable_type == 'News'%>
+		     	<a href=<%= post.es_show_path %> > <image src=<%= post.postable.image.image_url(:trend) %> /></a>
+		     	<article>
+		     		<%= truncate(post.postable.content,:length=>250) %>
+		      		<a href=<%= post.es_show_path %> class="read_more">read more...</a>
+		      	</article>
+  			<% elsif post.postable_type == 'Image' then %> 
+       			<a href=<%= post.es_show_path %> >
+       			<image src=<%= post.postable.image_url(:trend) %> width="106" height="176"></image></a>
+   	  			<article>
+   	  				<%= post.description %>
+   	  				<a href="javascript:vod(0);" class="read_more">read more...</a>
+   	  			</article>
+  			<% end %>
+		</li>
+  	<% end %>
+<% end %>

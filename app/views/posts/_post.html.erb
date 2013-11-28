@@ -1,0 +1,177 @@
+<div class="box col2">
+    <div class="hoverDiv" data-post-id="<%= post.id %>">
+        <div class="movie_share">
+            <a href="#" class="movie_fb float_L" onclick="
+                    window.open(
+                      'https://www.facebook.com/sharer/sharer.php?u=www.pattuko.com' + '<%= post.es_show_path %>', 
+                      'facebook-share-dialog', 
+                      'width=626,height=436'); 
+                    return false;">
+            </a>
+
+
+            <% if current_user %>
+                <% if !post.clapped_user_ids.nil? && post.clapped_user_ids.include?(current_user.id) %>
+                    <div class="movie_circle_connected float_R hover-section" id="fan-section-<%= post.id %>"
+                        data-id = "<%= post.id %>">
+                <% else %>
+                    <div class="movie_circle float_R hover-section" id="fan-section-<%= post.id %>"
+                            data-id = "<%= post.id %>">
+                <% end %>
+            <% else %>
+                <div class="movie_circle float_R hover-section" data-id = "<%= post.id %>" 
+                    onclick="location.href='<%= user_omniauth_authorize_path(:facebook) %>'">
+            <% end %>
+            
+                <div class="movie_circle_inner float_L" id="fan-section-<%= post.id %>" >
+                    <div class="movie_circle_inner_lft float_L" id="hover-content-<%= post.id %>"></div>
+
+                    <div class="movie_circle_inner_rgt float_R">
+                        <ul>
+                            <% if current_user %>
+                                <% if !post.clapped_user_ids.nil? && post.clapped_user_ids.include?(current_user.id) %>
+                                    <li><a href="javascript:void(0)">Clapped</a></li>
+                                <% else %>
+                                    <li><a href="javascript:void(0)"  id="home-page-clap-<%= post.id%>">Clap</a></li>
+                                <% end %>
+                            <% else %>
+                                <li><a href="<%= user_omniauth_authorize_path(:facebook) %>">Clap</a></li>
+                            <% end %>
+                            <li>
+                                <a href="#" class="movie_fb float_L" onclick="
+                                        window.open(
+        'https://www.facebook.com/sharer/sharer.php?u=www.pattuko.com' + '<%= post.es_show_path %>', 
+                                          'facebook-share-dialog', 
+                                          'width=626,height=436'); 
+                                        return false;">
+                                </a>
+
+                            </li>
+
+                            <li><a href="#">Link/Embed</a></li>
+
+                            <% if current_user %>
+                                <li><%= link_to "Report", block_post_path(:id=>post.id),:remote=>true %></li>
+                            <% end %>
+                            <% if session[:admin] %>
+                                <li>
+                                    <%= link_to "Delete", post_path(post), :method => :delete, :confirm => "are u sure?" %>
+                                </li>
+                                <li>
+                                    <%= link_to "#{ post.trusted ? 'untrusted' : 'trusted'}", 'javascript:void(0)', 
+                                        :id => 'trusted',
+                                        :data_id => post.id %>
+                                    <!-- <a href="javascript:void(0);" id="trusted">Link/Embed</a> -->
+                                </li>
+                                <li>
+                                <a href='javascript:void(0)' class='trending' postid=<%=post.id %>>
+                                        <%= post.trending ? 'untrend': 'trending' %>
+                                </a>
+                                </li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% if post.postable_type == "Album" %>
+            <p class="image-area" id="post-<%= post.id %>"
+                rel='group' title = '<%= post.title %>'
+                data-url="<%= post.es_show_path %>"
+                style="height: <%= post.image_thumb_height %>px;">
+                <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                    :alt => post.description,
+                    :class => 'lazy',
+                    :data => {"original" => post.image_url_thumb}), post.es_show_path %>
+                    <a href="<%= post.es_show_path %>"><span class="pt_album_icon"></span></a>
+            </p>
+        <% else %>
+            <p class="image-area" id="post-<%= post.id %>"
+                rel='group' title = '<%= post.title %>'
+                data-url="<%= post.es_show_path %>"
+                style="height: <%= post.image_thumb_height %>px;">
+                <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                    :alt => post.description,
+                    :class => 'lazy',
+                    :data => {"original" => post.image_url_thumb}), post.es_show_path %>
+                    <% if post.postable_type == "Video" %>
+                        <a href="<%= post.es_show_path %>"><span class="pt_video_icon"></span></a>
+                    <% end %>
+            </p>
+        <% end %>
+
+        <span class="movie-comments" id="post-120"><%= post.title %></span>
+        <div id="post-trusted-<%= post.id  %>">
+            <% if post.trusted == true %>
+                <img class="ribben" src="/assets/ribben.png" width="30" height="37">
+            <% end %>
+        </div>
+        <div id="post_description-<%= post.id %>">
+            <span class="movie_cmts" id="comment-count-<%= post.id %>">
+                <a href="<%= post.es_show_path %>"> Comments <%= post.comments_count %></a>
+                <a href="<%= post.es_show_path %>"> Views <%= post.total_views %></a>
+                <a href="<%= post.es_show_path %>"> Clapped <%= post.claps_count %></a>
+            </span>
+
+            <% if current_user %>
+                <% if !post.clapped_user_ids.nil? && post.clapped_user_ids.include?(current_user.id) %>
+                    <div class="comment-list" id="comment-list-<%= post.id %>">
+                        <ul>
+                            <li>
+                                <figure class="float_L">
+                                    <a href="<%= user_path(post.user) %>">
+                                        <img src="<%= post.user.image_url %>" width="30" height="30" alt="<%= post.user.username %>">
+                                    </a>
+                                </figure>
+                                <label>
+                                    <%= post.user.username %><br>
+                                    <%= time_ago_in_words(post.created_at) %> ago
+                                </label>
+                            </li>
+                            <% unless post.comments.empty? %>
+                                <% post.comments.first(1).each do |comment| %>
+                                    <li id ="post_replace-<%= post.id %>">
+                                        <figure class="float_L">
+                                            <img src="<%= post.user.image_url %>" width="30" height="30" alt="Profile Image">
+                                        </figure>
+                                        <label>
+                                            <a href="/user/<%= post.user.id %>/user_posts"></a>
+                                            <%= comment.body %><br/>
+                                            <a class="simple" href="javascript:void(0)" 
+                                                id='post_like-<%= comment.id %>-1'>Like</a>
+                                            <% if current_user %>
+                                                <% if current_user.id == 1 %>
+                                                    <a class="simple" href="javascript:void(0);" 
+                                                        id="post_delete-<%= comment.id %>-<%= post.id %>">
+                                                        Delete
+                                                    </a>
+                                                <% end %>
+                                            <% end %>
+                                        </label>
+                                    </li>
+                                <% end %>
+                            <% end %>
+                            <li id = "post_replace-<%= post.id %>" style="display:none">
+                            </li> 
+                        </ul>
+                        <% if post.comments.count > 1 %>
+                            <div class="comment-list">  
+                                <a href="javascript:void(0)">
+                                    <%= link_to 'View All comments', post.es_show_path, :class => "all-comnt" %>
+                                </a>
+                            </div>
+                        <% end %>
+                    </div>
+
+                    <div class="movie_comts_area">
+                        <figure class="float_L">
+                            <img src="<%= current_user.image_url %>" width="40" height="40" alt="Profile Image">
+                        </figure>
+                        <textarea class="float_L homepage-comment" id="<%= post.id %>" placeholder="Write a comment..."></textarea>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

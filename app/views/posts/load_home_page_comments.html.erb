@@ -1,0 +1,66 @@
+<div>
+    <span class="movie_cmts" id="comment-count-<%= @post.id %>">
+        <a href="<%= post_path(@post) %>"> Comments <%= @post.comments.count %></a>
+        <a href="<%= post_path(@post) %>"> Views <%= @post.total_views %></a>
+        <a href="<%= post_path(@post) %>"> Clapped <%= @post.claps.count %></a>
+    </span>
+    <% if current_user %>
+        <% if @post.claps.collect(&:user_id).include?(current_user.id) %>
+            <div class="comment-list" id="comment-list-<%= @post.id %>">
+                <ul>
+                    <li>
+                        <% user = User.find(@post.user_id) %>
+                        <figure class="float_L">
+                            <img src="<%= user.image_url %>" width="30" height="30" alt="<%= user.username %>">
+                        </figure>
+                        <label>
+                            <%= User.find(@post.user_id).username %><br>
+                            <%= time_ago_in_words(@post.created_at) %> ago
+                        </label>
+                    </li>
+                    <% unless @post.comments.empty? %>
+                        <% @post.comments.first(1).each do |comment| %>
+                            <% if comment.user = current_user %>
+                                <li id = "post_replace-<%= @post.id %>">
+                                    <figure class="float_L">
+                                        <img src="<%= comment.user.image_url %>" width="40" height="40" alt="Profile Image">
+                                    </figure>
+                                    <label>
+                                        <a href="/user/<%= comment.user.id %>/user_posts"></a>
+                                        <%= comment.body %>
+                                    </label>
+                                    <a class="simple" href="javascript:void(0)" id = 'post_like-<%= comment.id %>-<%= current_user %>'>like</a>
+                                    <% if current_user %>
+                                        <% if current_user.id == comment.user_id %>
+                                            <a class="simple" href="javascript:void(0);" 
+                                                id="post_delete-<%= comment.id %>-<%= @post.id %>">
+                                                Delete
+                                            </a>
+                                        <% end %>
+                                    <% end %>
+                                </li>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <li id = "post_replace-<%= @post.id %>" style="display:none">
+                         </li>   
+                    <% end %>       
+                </ul>
+                <% if @post.comments.count > 1 %>
+                    <div class="comment-list">  
+                        <a href="javascript:void(0)">
+                            <%= link_to 'View All comments', post_path(@post), :class => "all-comnt" %>
+                        </a>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="movie_comts_area">
+                <figure class="float_L">
+                    <img src="<%= current_user.image_url %>" width="40" height="40" alt="Profile Image">
+                </figure>
+                <textarea class="float_L homepage-comment" id="<%= @post.id %>" placeholder="Write a comment..."></textarea>
+            </div>
+        <% end %>
+    <% end %>
+</div>

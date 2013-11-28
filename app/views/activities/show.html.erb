@@ -1,0 +1,20 @@
+<h2 align="center">Feedback</h2>
+<%= form_tag  feedback_activities_path do %>
+
+    <label class="post_fb">
+        <%= check_box_tag :not_satisfied, nil  %>   not Satisfied
+    </label>
+    <label class="post_fb">
+        <%= check_box_tag :ok, nil  %>   OK
+    </label>
+    <label class="post_fb">
+        <%= check_box_tag :good, nil  %>   Good
+    </label>
+    <label class="post_fb">
+        <%= check_box_tag :improve, nil  %>   Need to improve
+    </label>
+    <label>
+        <%= submit_tag 'submit' , :class => "sub_btn", :style => "float:left;" %>
+    </label>
+    
+<% end %>

@@ -1,0 +1,13 @@
+<%= form_tag "/admin/relationships/create_relation",:method=>:post do %>
+	
+	<input type="text" name="artist_id" class = "bigdrop" id = "artist_select_dropdown" style="width: 805px;">
+		<br/><br/>
+	<%= select_tag(:relationship_type, options_for_select(@relationship.relation_names.map{|n|[n,n]})) %>
+		<br/><br/>
+	<input type="text" name="relation_id" class = "bigdrop" id = "relative_select_dropdown" style="width: 805px;">
+		<br/><br/>
+	<strong>To Relation</strong>
+		<br/><br/>
+	<%= select_tag(:relationship_back, options_for_select(@relationship.relation_names.map{|n|[n,n]})) %><br/><br/>
+	<%= submit_tag "submit" %>
+<% end %>

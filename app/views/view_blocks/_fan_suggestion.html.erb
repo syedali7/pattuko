@@ -1,0 +1,13 @@
+<div style='float:left;width:400px;'>
+	<h2>Fan Suggestions</h2>
+	<% Movie.limit(3).each do|m|%>
+         <div>
+		<a href=<%= movie_path(m) %>>
+                  <image src=<%= m.movie_image_url(:thumb) %> style='float:left;'></image>
+                </a>
+		<input class="float_R cmn_btn" type="submit" value="I'm Fan">
+		<p style='font-size:15px;float:left;'><%= m.name %></p>
+		<br/><br/><br/><br/><br/><br/><br/>
+         </div>
+	<% end%>
+</div>

@@ -1,0 +1,2 @@
+<% album = Album.find(post.postable_id) %>
+<%= render :partial => 'albums/albumImage', :locals => {:album => album,:post => post} %>

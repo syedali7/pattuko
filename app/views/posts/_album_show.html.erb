@@ -1,0 +1,29 @@
+<div class='user_id' style='display:none'>
+    <% unless current_user.nil? %>
+        <%= current_user.id %>
+    <% end %>    
+</div>
+<% album = Album.find(@post.postable_id) %>
+<% album.images.each do |img| %>
+	<% unless img.nil? %>
+		<div class="box col2 ">
+		    <p class="image-area fancybox-buttons" 
+                style = "cursor:pointer; height: <%= img.thumb_height %>px;" 
+                data-fancybox-group="button" 
+                href="<%= img.image%>" title="<%= album.album_name %>">
+                <img src="<%= img.image.url(:thumb).to_s %>" alt="" />
+            </p>
+            <% if session[:admin] %>
+                <% if album.cover_image_id == img.id %>
+                    COVER PHOTO
+                <% end %>
+                <a class="cover-photo-change" data-image-id="<%= img.id %>"
+                    data-album-id="<%= album.id %>"
+                    data-post-id=<%= @post.id %> href="javascript:void(0);">
+                    change cover photo
+                </a>
+                <%= link_to 'Delete', delete_album_photo_posts_path(:image_id => img.id) %>
+            <% end %>
+		</div>
+	<% end %>
+<% end %>

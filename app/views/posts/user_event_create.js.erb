@@ -1,0 +1,5 @@
+$("input[name='event_id']").val("<%= @event.id %>");
+$("#movie_select_dropdown").val("<%= @event.id %>");
+$.bbq.pushState({"q" : $.bbq.getState("q") + "_" + <%= @event.id %> + "-event_selection"});
+console.log("working");
+console.log("<%= @event.id %>");

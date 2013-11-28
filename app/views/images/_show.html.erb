@@ -1,0 +1,12 @@
+<% image = Image.find(@post.postable_id) %>
+<div class='user_id' style='display:none'>
+    <% unless current_user.nil? %>
+        <%= current_user.id %>
+    <% end %>    
+</div>
+<figure>
+	<%= link_to image_tag(image.image.url(:medium).to_s,
+    	:class => 'lazy',
+    	:style => "display:table; margin:0 auto; height:#{image.medium_height}px;",
+    	:data => {"original" => image.image.url(:medium).to_s}), 'javascript:void(0)' %>
+</figure>

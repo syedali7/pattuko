@@ -1,0 +1,3 @@
+$("input[name='movie_id']").val("<%= @movie.id %>");
+$("#movie_select_dropdown").val("<%= @movie.id %>");
+$.bbq.pushState({"q" : $.bbq.getState("q") + "_" + <%= @movie.id %> + "-movie_selection"});

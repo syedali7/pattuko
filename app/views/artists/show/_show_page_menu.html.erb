@@ -1,0 +1,64 @@
+<% if params[:controller] == "artists" && params[:action] == "show" %>
+    <div class="float_L w100">
+        <ul class="artist_menu float_L">
+            <a href="<%= artist_path(@artist) %>">
+                <li><%= @artist.name %></li>
+            </a>
+            <li>
+                <%= link_to "Photos (#{@artist.photos.count})", 
+                    photos_artist_path(@artist) %>
+            </li>
+            <li>
+                <%= link_to "Videos (#{@artist.videos.count})", 
+                    videos_artist_path(@artist.id) %>
+            </li>
+            <li>
+                <%= link_to "Movies (#{@artist.movies.count})", movies_artist_path(@artist) %>
+            </li>
+            <li>
+                <a href="javascript:void(0);" id="artist-fans" data-id="<%= @artist.id %>">
+                    Fans(<%= @artist.fans.count %>)
+                </a>
+            </li>
+            <li>
+                <%= link_to "Posts (#{@artist.posts.count})", posts_artist_path(@artist) %>
+            </li>
+        </ul>
+        <ul class="artist_social float_L">
+            <li>
+                <a href="javascript:void(0);" 
+                    class="artist_fb"
+                    onclick="
+                    window.open(
+                      'https://www.facebook.com/sharer/sharer.php?u=www.pattuko.com/artists/' +
+                            '<%= @artist.slug %>', 
+                      'facebook-share-dialog', 
+                      'width=626,height=436'); 
+                    return false;">
+                </a>
+            </li>
+            <li>
+                <a 
+                    href="http://twitter.com/share?text=An%20Awesome%20Page&url=http://www.pattuko.com/artists/<%= @artist.slug %>"
+                    class="artist_tw">
+                </a>
+            </li>
+            <li>
+                <a href="//www.pinterest.com/pin/create/button/?url=http://www.pattuko.com/artists/<%= @artist.slug %>&media=<%= @artist.artist_image
+                    %>&description=Awesome%20Page%3A%20Pattuko" class="artist_pi">
+                </a>
+            </li>
+        </ul>
+        <% if current_user %>
+            <% if @artist.fans.collect(&:user_id).include?(current_user.id) %>
+            <% else %>
+                <input class="cmn_btn mt25" id="artist-<%= @artist.id %>" type="button" 
+                value="I'm Fan">
+            <% end %>
+        <% else %>
+            <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                <input type="button" class="cmn_btn mt25" value="I'm Fan">
+            </a>
+        <% end %>
+    </div>
+<% end %>

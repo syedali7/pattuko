@@ -1,0 +1,111 @@
+<% post =  Post.find(params[:id]) %>
+<% if post.postable_type == "News" %>
+	<% news = News.find(post.postable_id) %>
+	<% image = Image.find(news.image_id) %>
+	<% image_file = image.image %>
+<% elsif post.postable_type == "Video" %>
+	<% video = Video.find(post.postable_id) %>
+	<% image_file = video.youtube_url %>
+<% elsif post.postable_type == "Album" %>
+	<% album = Album.find(post.postable_id) %>
+	<% image = album.images.first %>
+	<% image_file = image.image %>
+<% elsif post.postable_type == "Image" %>
+	<% image = Image.find(post.postable_id) %>
+	<% image_file = image.image %>
+<% end %>
+
+<% if post.posting_type == "Movie" %>
+	
+<% elsif post.posting_type == "Artist" %>
+	
+<% end %>
+
+<table>
+		<tr>
+			<td><b>Title</b> </td>
+			<td><%= post.title %></td>
+		</tr>
+		<tr>
+			<td><b>Description</b></td>
+			<td><%= post.description %></td>
+		</tr>
+		<tr>
+			<td><b>Postable type</b></td>
+			<td><%= post.postable_type %></td>
+		</tr>
+		<tr>
+			<td><b>Postable id </b></td>
+			<td><%= post.postable_id %></td>
+		</tr>
+		<tr>
+			<td><b>Posting type</b></td>
+			<td><%= post.posting_type %></td>
+		</tr>
+		<tr>
+			<td><b>Posting id</b></td>
+			<td><%= post.posting_id %></td>
+		</tr>
+		<% if post.posting_type == "Movie" %>
+			<% posting_name = Movie.find(post.posting_id).name %>
+			<tr>
+				<td><b>Posted Movie</b></td>
+				<td><%= posting_name %></td>
+			</tr>
+		<% elsif post.posting_type == "Artist" %>
+			<% posting_name = Artist.find(post.posting_id).name %>
+			<tr>
+				<td><b>Posted Artist</b></td>
+				<td><%= posting_name %></td>
+			</tr>
+		<% end %>
+		<% unless post.user.nil? %>
+			<tr>
+				<td><b>Created User</b></td>
+				<td><a href = "/admin/users/<%=post.user.id%>"><%= post.user.username %></a></td>
+			</tr>
+		<% end %>
+</table>
+<% if post.postable_type == "News" %>
+		<b>News Content:</b><br>
+		<%= news.content %>
+<% end %>
+<br><br>
+
+<% if post.postable_type == 'Video' %>
+	<h3>Youtube Video</h3> 
+	<% youtube = image_file.split('?').first %> <!-- set autoplay false -->
+	<p class="image-area">
+		<iframe width="420" height="345"
+			src="<%= youtube %>">
+		</iframe>
+	</p>
+<% elsif post.postable_type == 'Album' %>
+	<h3>Album images</h3>
+	<% album = Album.find(@post.postable_id) %>
+	<% album.images.each do |img| %> 
+		<p class="image-area">
+			<img src="<%= img.image.url(:thumb) %>">
+		</p>
+	<% end %>
+<% elsif post.postable_type == 'News' %>
+	<h3>Display image for this News</h3>
+	<p class="image-area">
+		<img src="<%= image_file.url(:thumb) %>">
+	</p>
+<% elsif post.postable_type == 'Image' %>
+	<h3>Display image</h3>
+	<p class="image-area">
+		<img src="<%= image_file.url(:thumb) %>">
+	</p>
+<% end %>
+
+
+<h3> Comments <h3>
+<% post.comments.each do |c| %>
+	<ul>
+		<li><a href = "/admin/users/<%=c.user.id%>"><%= c.user.username %>:</a> <%= c.body %></li>
+	</ul>
+<% end %>
+
+<a href = "/posts/<%= post.id %>">View post on site</a>

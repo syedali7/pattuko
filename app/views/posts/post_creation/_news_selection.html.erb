@@ -1,0 +1,59 @@
+<div id="news-panel" class="news_selection">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div id="navigation_news"></div>
+            <p class="desc_text">Tell the fans world about this news</p>
+            <div class="float_L ml30">
+                <div class="image-preview">
+                    <div class="image_upld">
+                        <%= image_tag(asset_path("default_image.png")) %>
+                    </div>
+                </div> 
+                <%= form_for Image.new,  :html => { :id => "news_image_upload" } do |i| %>
+                    <%= i.file_field  :image  %>
+                <% end %>   
+            </div>
+            <%= form_tag  news_create_posts_path , :id => 'validate_image', 
+                     :multipart => true do %>
+                <div class="float_L">
+                        <%= hidden_field_tag 'movie_id'  %>
+                        <%= hidden_field_tag 'artist_id' %>
+                        <%= hidden_field_tag 'mention_movie_id' %>
+                        <%= hidden_field_tag 'mention_artist_id' %>
+                        <%= hidden_field_tag 'image_id' %> 
+                        <%= hidden_field_tag 'user_id' %>
+                        <%= hidden_field_tag 'posting_type' %>
+                        <%= text_field_tag :title, nil, :class=> "cmn_inpt", :id=> "news_title" ,
+                            :placeholder => "Title" %>
+                        <%#= text_field_tag :description, nil, :class=> "cmn_inpt", 
+                            :placeholder => "Description" %>
+                        <%= text_field_tag :source_name, nil, :class=> "cmn_inpt",:placeholder => "Source" %>
+                        <%= text_area_tag :content,nil, :class => "cmn_txtarea ckeditor", :id => "news_content",
+                            :placeholder => "News Content" %>
+                        <label class="post_fb">
+                            <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   Post to facebook
+                        </label>
+                        <%= submit_tag 'submit' , :class => "sub_btn mention_submit" %>
+                </div>
+            <% end %>
+
+            <% if session[:admin] %>
+                <div  style="float:left; clear">
+                    <div id="wait_process" style="display:none;">
+                        Please wait... scrapping under process.. Do not refresh the page
+                    </div>
+                    <div style="display: table-cell;">
+                        <input type="text" id="scrap_url" class="cmn_inpt" placeholder="scrap url"/>
+                        <input type="text" id="image_url" class="cmn_inpt" placeholder="image url"/>
+                        <button class="sub_btn clear" id="scrap_url_submit">submit</button>
+                    </div>
+
+                </div>
+
+            <% end %>
+
+        </div>
+
+    </div>
+</div>

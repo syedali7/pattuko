@@ -1,0 +1,20 @@
+<section id="content">
+    <div id="container" class="transitions-enabled clearfix" style="margin: 0 auto;">
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+        <% @posts.each do |post| %>
+            <% begin %>
+                <%= render :partial => 'posts/post', :locals => {:post => post} %>
+            <% rescue %>
+                <% next %>
+            <% end %>
+        <% end %>
+        <button id="ScrollToTop" class="Button WhiteButton Indicator" type="button">
+            Scroll to Top
+        </button>
+        
+    </div>
+</section>

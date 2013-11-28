@@ -1,0 +1,24 @@
+<% movie =  Movie.find(params[:id]) %>
+<table>
+	<thead>
+		<tr>
+			<td>Artist Type </td>
+			<td>Artist</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% movie.movie_artists.group_by(&:artist_type).each do |key, value|%>
+			<% unless key.nil? %>
+				<tr>
+					<td><%= key.name %></td>
+					<td><%= value.collect{ |a| a.artist.name }.join(',') %></td>
+				</tr>
+			<% end%>
+		<% end %>
+		<tr>
+			<td>Description</td>
+			<td><%= movie.description %></td>
+		<tr>
+	</tbody>
+</table>
+<a href = "/admin/movies/<%= movie.id %>/quick_edit">Quick edit</a>

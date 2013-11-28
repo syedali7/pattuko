@@ -1,0 +1,180 @@
+<div class='user_id' style='display:none'>
+    <% unless current_user.nil? %>
+        <%= current_user.id %>
+    <% end %>    
+</div>
+
+<div id="create-panel" class="create_home" style="display:none;">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div id="text">
+                <p class="head_text">Be a super fan of</p>
+                <h4>post the things you like, get the claps from the<br> 
+                people and become popular in the fans world...</h4>
+            </div>
+            <div class="float_L">
+                <ul class="choice">
+                    <li>
+                        <a href="javascript:void(0)" class="movie" data-value="create-movie">
+                            <span class="movie_icn"></span>
+                            <p class="title">Movie</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="artist" data-value="create-artist">
+                            <span class="artist_icn"></span>
+                            <p class="title">Artist</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="event" data-value="create-event">
+                            <span class="movie_icn"></span>
+                            <p class="title">Event</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="movie-panel" class="create_home" style="display:none;">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div class="float_L">
+                <ul class="choice">
+                    <li>
+                        <a href="javascript:void(0)" class="movie">
+                            <span class="movie_icn"></span>
+                            <p class="title">Movie</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="artist" data-value="create-artist">
+                            <span class="artist_icn"></span>
+                            <p class="title">Artist</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="event" data-value="create-event">
+                            <span class="movie_icn"></span>
+                            <p class="title">Event</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="hidden" class="bigdrop" id="movie_select_dropdown" style="width:600px;" />
+
+            <div class="float_L input_area" id="cannot-find-movie">
+                <a class="cant_find" href="#">Cant find the movie?</a>
+                <a class="add_item" id="add-movie"
+                    href="javascript:void(0);"><span></span>Add new Movie</a>
+            </div>
+
+            <div class="movie-input-field" style="display: none;">
+                <div class="input-append">
+                  <input class="span2" id="movie-name" type="text" placeholder="movie name">
+                  <button class="btn" id="new-movie-btn" type="button">Go!</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="artist-panel" class="create_home" style="display:none;">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div class="float_L">
+                <ul class="choice">
+                    <li>
+                        <a href="javascript:void(0)" class="movie" data-value="create-movie">
+                            <span class="movie_icn"></span>
+                            <p class="title">Movie</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="artist">
+                            <span class="artist_icn"></span>
+                            <p class="title">Artist</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="event" data-value="create-event">
+                            <span class="movie_icn"></span>
+                            <p class="title">Event</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="hidden" class="bigdrop" id="artist_select_dropdown" style="width:600px;" />
+
+            <div class="float_L input_area" id="cannot-find-artist">
+                <a class="cant_find" href="#">Cant find the artist?</a>
+                <a class="add_item" id="add-artist"
+                    href="javascript:void(0);"><span></span>Add new Artist</a>
+            </div>
+
+            <div class="artist-input-field" style="display: none;">
+                <div class="input-append">
+                  <input class="span2" id="artist-name" type="text" placeholder="artist name">
+                  <button class="btn" id="new-artist-btn" type="button">Go!</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="event-panel" class="create_home" style="display:none;">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div class="float_L">
+                <ul class="choice">
+                    <li>
+                        <a href="javascript:void(0)" class="movie" data-value="create-movie">
+                            <span class="movie_icn"></span>
+                            <p class="title">Movie</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="artist" data-value="create-artist">
+                            <span class="artist_icn"></span>
+                            <p class="title">Artist</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="event" data-value="create-event">
+                            <span class="movie_icn"></span>
+                            <p class="title">Event</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="hidden" class="bigdrop" id="event_select_dropdown" style="width:600px;" />
+
+        </div>
+    </div>
+</div>
+
+
+<%= render :partial => 'posts/post_creation/movie_selection' %>
+<%= render :partial => 'posts/post_creation/artist_selection' %>
+<%= render :partial => 'posts/post_creation/event_selection' %>
+
+<%= render :partial => 'posts/post_creation/album_selection' %>
+<%= render :partial => 'posts/post_creation/news_selection' %>
+<%= render :partial => 'posts/post_creation/video_selection' %>
+<%= render :partial => 'posts/post_creation/image_selection' %>
+<%= render :partial => 'posts/post_creation/review_selection' %>
+<%= render :partial => 'posts/post_creation/post_movie_mention' %>
+<%= render :partial => 'posts/post_creation/post_artist_mention' %>
+<%= render :partial => 'posts/post_creation/post_event_mention' %>

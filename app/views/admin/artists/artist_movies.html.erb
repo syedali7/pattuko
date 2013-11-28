@@ -1,0 +1,23 @@
+<p style='background-color:#66CCFF;height:20px;'><%= @artist.name %></p>
+<table>
+	<th>Movies</th>
+	<th>ROLL</th>
+	<th></th>
+<% @artist.movies.uniq.each do |m| %>
+  <tr style=<%= cycle('background-color:#CCFFFF','background-color:#FF99CC') %> >
+  	<td><%= m.name %></td>
+  	<td>  
+      <% MovieArtist.where('movie_id=? and artist_id=?',m.id,@artist.id).each do |ma| %>
+       <button class="del_artist_type" id=<%= ma.id %> ><%= ma.artist_type.name %>   x</button> 
+      <% end %>
+  	</td>
+  	<td><%= link_to 'Delete','javascript:void(0);' %></td>  	 	
+  </tr>
+<% end %>
+</table>
+<%= form_tag '/admin/artists/'+@artist.id.to_s+'/new_movie_add',:method=>:get do %>
+    <strong>Add A New Movie OR Roll To Artist</strong> 
+	<%= collection_select(:movie, :id, Movie.all, :id, :name) %>
+	<%= collection_select(:artist_type, :id, ArtistType.all, :id, :name) %>
+	<%= submit_tag('Add')%>
+<% end %>

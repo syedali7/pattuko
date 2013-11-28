@@ -1,0 +1,59 @@
+<% unless current_user.nil? %>
+    <div id="popup-pageload-movies">
+        <div style="text-align: center;">
+            <div><h1>Recommended Movies you may Follow</h1></div>
+            <% @movies.each do |movie| %>
+                <ul>
+                    <li>
+                        <button data-movie-id='<%= movie.id %>' class="movie_name_select"
+                         type="button">
+                            <%= movie.name %>
+                        </button>
+                    </li>
+                </ul>
+            <% end %>
+            <br>
+            <p class="movies_selection_done btn btn-primary btn-large">Follow</p>
+        </div>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        // movies selection
+        $("button.movie_name_select").click(function() {
+            $(this).addClass("selected");
+            $(this).toggleClass('color-change');
+        });
+
+
+        var movie_ids = new Array();
+
+        // movies selection done
+        $(".movies_selection_done").click(function() {
+            var user_id = parseInt($('.user_id').html());
+            var arr = $("button.selected").map(function(){return $(this).attr("data-movie-id");}).get();
+            for (i = 0; i < arr.length; i++) {
+                temp = parseInt(arr[i]);
+                movie_ids[i] = temp;
+            }
+            console.log(movie_ids);
+            $.ajax({
+                type : 'POST',
+                url: '/movies/preferences_of_movies',
+                data : { movie_ids : movie_ids , user_id : user_id},
+                success: function() {
+                    window.location.href = '/'; 
+                }
+            });
+        });
+
+        $('input[type="button"]').click(function(){
+            if(!$(this).hasClass('red'))
+                  $(this).addClass('red');
+        });
+    });
+
+</script>

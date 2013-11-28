@@ -1,0 +1,14 @@
+<div>
+  <%= form_tag(message_discussion_path(@discussion.id),:method=>'GET',:remote =>true,multipart: true,:id=>"mess_img") do %>
+    <%= label_tag :content,'Express you view!' %>
+    <%= text_field_tag :content %>
+    <%= label_tag :image ,"uploadimage"%>
+    <% #image_tag('/assets/image-upload-icon.png',) %>
+  <% end %>
+</div>
+<div id='messages_list'>
+	<% @discussion.messages.each do |m| %>
+	   <p style=<%= cycle('background-color:#CC99FF;','background-color:#CCFFCC')%> ><%= m.content %></p>
+
+	<% end %>
+</div>

@@ -1,0 +1,21 @@
+<% ArtistType.all.each do |artist_type| %>
+  <div style="width: 750px; padding: 5px;">
+    <div  style="width: 500px; float: left;" >
+      <div style='width : 250px; float: left;'>
+        <%= label_tag :artist_type, artist_type.name %>
+      </div>
+      <% artists = [] %>
+      <% MovieArtist.where(:movie_id => @movie.id, :artist_type_id => artist_type.id).each do |ma|  %>
+          <% artists << Artist.find(ma.artist_id) %>
+      <% end %>
+      <div style='width : 250px; float: right;'>
+        <%= artists.map{|a| a.name}.join(',')  %>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+    <div  style="width: 250px; float: right;" >
+      <input type="text" name="movie_artist-<%= artist_type.id %>" id="edit_movie_artist-<%= artist_type.id %>" >
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+<% end %>

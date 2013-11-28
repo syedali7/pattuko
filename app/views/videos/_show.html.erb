@@ -1,0 +1,9 @@
+<% video = Video.find(@post.postable_id) %>
+<div class='user_id' style='display:none'>
+    <% unless current_user.nil? %>
+        <%= current_user.id %>
+    <% end %>    
+</div>
+<figure>
+	<iframe width="550" height="289" src="<%= video.youtube_url%>" frameborder="0" allowfullscreen></iframe>
+</figure>

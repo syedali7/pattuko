@@ -1,0 +1,40 @@
+<%= render :partial => '/layouts/filter', :locals => {:posts => @posts} %>
+<% if current_user.nil? %>
+    <% unless params[:page].to_i > 1 %>
+        <div class="widget_container">
+            <!-- <a href="#" class="widget_close_icon"></a> -->
+            <h1>Welcome to the social movie network</h1>
+            <span>
+                Discover more about your favourite 
+                <a href="">heros</a>, 
+                <a href="">heroines</a> and 
+                <a href="">movies</a>
+                 and strengthen your fan club
+             </span> 
+            <a href="<%=user_omniauth_authorize_path(:facebook)%>" class="widg_fb_icon" style="width: 235px;"></a>
+        </div>
+    <% end %>
+<% end %>
+<section id="content">
+    <div id="container" class="container transitions-enabled clearfix" style="margin: 0 auto;">
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+        <% @posts.each do |post| %>
+                <% begin %>
+                    <%= render :partial => 'posts/post', :locals => {:post => post} %>
+                <% rescue %>
+                    <% next %>
+                <% end %>
+        <% end %>
+    </div>
+</section>
+
+<section class="show_popup" style ="display:none">
+</section>
+
+<div class="pageless-navigation">
+    <a href="/posts?page=2" />
+</div>

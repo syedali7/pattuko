@@ -1,0 +1,4 @@
+$("input[name='artist_id']").val("<%= @artist.id %>");
+$("#artist_select_dropdown").val("<%= @artist.id %>");
+$.bbq.pushState({"q" : $.bbq.getState("q") + "_" + <%= @artist.id %> + "-artist_selection"});
+

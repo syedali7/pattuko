@@ -1,0 +1,113 @@
+<div class="people_involved float_L">
+    <% if @post.posting_type == "Movie" %>
+        <ul class = "involved" id="people_involved">
+            <% @people.each do |p| %>
+                <li>
+                    <figure class="float_L">
+                        <a href="<%= artist_path(p) %>">
+                            <img src="<%= p.artist_profile_image.url(:thumb)%>" alt="acotor">
+                        </a>
+                    </figure>
+                    <span class="float_L">
+                       <a href="<%= artist_path(p) %>"><%= p.name %></a></br>
+                        Actor/Director/Singer</br>
+                        <%= pluralize( Artist.find(p.id).fans.count, 'fan' ) %> 
+                    </span>
+                    <% if current_user %>
+                        <% if p.fans.collect(&:user_id).include?(current_user.id) %>
+                        <% else %>
+                            <input class="float_R cmn_btn" id="artist-<%= p.id %>" type="submit" value="I'm Fan">
+                        <% end %>
+                    <% else %>
+                        <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                            <input class="float_R cmn_btn" type="submit" value="I'm Fan">
+                        </a>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    <% elsif @post.posting_type == "Artist" %>
+        <% artist = Artist.find(@post.posting_id) %>
+        <ul class = "involved" id="people_involved">
+            <% @people.each do |p| %>
+                <li>
+                    <figure class="float_L">
+                        <a href="<%= movie_path(p) %>">
+                            <img src="<%= p.movie_image.url(:thumb)%>" alt="acotor">
+                        <a>
+                    </figure>
+                    <span class="float_L">
+                        <a href="<%= movie_path(p) %>"><%= p.name %></a>
+                        <%= pluralize( Movie.find(p.id).fans.count, 'fan' ) %> 
+                    </span>
+                    <% if current_user %>
+                        <% if p.fans.collect(&:user_id).include?(current_user.id) %>
+                        <% else %>
+                            <input class="float_R cmn_btn" id="movie-<%= p.id %>-<%= current_user.id %>" type="submit" value="I'm Fan">
+                        <% end %>
+                    <% else %>
+                        <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                            <input class="float_R cmn_btn" type="submit" value="I'm Fan">
+                        </a>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    <% elsif @post.posting_type == "Event" %>
+        <% event = Event.find(@post.posting_id) %>
+        <% if event.eventable_type == "Movie" %>
+            <ul class = "involved" id="people_involved">
+                <% @people.each do |p| %>
+                    <li>
+                        <figure class="float_L">
+                            <a href="<%= artist_path(p) %>">
+                                <img src="<%= p.artist_profile_image.url(:thumb)%>" alt="acotor">
+                            </a>
+                        </figure>
+                        <span class="float_L">
+                           <a href="<%= artist_path(p) %>"><%= p.name %></a></br>
+                            Actor/Director/Singer</br>
+                            <%= pluralize( Artist.find(p.id).fans.count, 'fan' ) %> 
+                        </span>
+                        <% if current_user %>
+                            <% if p.fans.collect(&:user_id).include?(current_user.id) %>
+                            <% else %>
+                                <input class="float_R cmn_btn" id="artist-<%= p.id %>-<%= current_user.id %>" type="submit" value="I'm Fan">
+                            <% end %>
+                        <% else %>
+                            <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                                <input class="float_R cmn_btn" type="submit" value="I'm Fan">
+                            </a>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        <% elsif event.eventable_type == "Artist" %>
+            <ul class = "involved" id="people_involved">
+                <% @people.each do |p| %>
+                    <li>
+                        <figure class="float_L">
+                            <a href="<%= movie_path(p) %>">
+                                <img src="<%= p.movie_image.url(:thumb)%>" alt="acotor">
+                            <a>
+                        </figure>
+                        <span class="float_L">
+                            <a href="<%= movie_path(p) %>"><%= p.name %></a>
+                            <%= pluralize( Movie.find(p.id).fans.count, 'fan' ) %> 
+                        </span>
+                        <% if current_user %>
+                            <% if p.fans.collect(&:user_id).include?(current_user.id) %>
+                            <% else %>
+                                <input class="float_R cmn_btn" id="movie-<%= p.id %>-<%= current_user.id %>" type="submit" value="I'm Fan">
+                            <% end %>
+                        <% else %>
+                            <a href="<%= user_omniauth_authorize_path(:facebook) %>">
+                                <input class="float_R cmn_btn" type="submit" value="I'm Fan">
+                            </a>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+    <% end %>
+</div>  

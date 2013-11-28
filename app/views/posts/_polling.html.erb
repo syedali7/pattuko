@@ -1,0 +1,20 @@
+<% if current_user %>
+    <% if posting_fan(@post) == true %>                
+        <div class="movie_links float_L" id="poll_success_response">
+            <h2 class="secondary_header">Polling</h2>
+            <a href="javascript:void(0);" id="question-<%= @post.id %>"> Ask Question </a>
+            <div class="comment_area float_L polling" id ="textfield-<%= @post.id %>" >
+                <textarea class="float_L showpage-comment" id="question_text-<%= @post.id %>" 
+                 placeholder="Ask Something..."></textarea>
+            </div>
+            <div class="comment_area float_L answer-options" id ="answer-options-<%= @post.id %>" >
+                <% (0...4).each do |count| %>
+                    <textarea class="float_L showpage-comment" 
+                    id="answer_text-<%= count %>" placeholder="Add option..."></textarea>
+                <% end %>
+            </div>
+            <button class ="sub_btn post_poll_button" id="post_poll_button-<%= @post.id %>">
+             Post </button>
+        </div>
+    <% end %>
+<% end %>

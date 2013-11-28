@@ -1,0 +1,10 @@
+<% @images=post.postable.images.limit(4) %>
+<ul>
+    <% @images.each do|img|%>	
+	  <li class="float_L"> 
+	  	<a href=<%= post.es_show_path %> class="float_L">
+	  		<img src=<%= img.image_url(:thumb) %> />
+	  	</a>
+	  </li>
+    <% end %>  
+</ul>

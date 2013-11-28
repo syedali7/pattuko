@@ -1,0 +1,41 @@
+/*$('.image_upld').html("<div class='image_upld'><img src='<%= @image.image.url(:thumb).to_s %>' id='image_id-<%= @image.id %>' alt='Default Image'/></div>");*/
+$('.image-preview').html("<p class='image-area' rel='group' id='image_id-<%= @image.id %>' style='height: <%= @image.thumb_height %>px;'> <img src='<%= @image.image.url(:thumb).to_s %>' id='image_id-<%= @image.id %>'</p>");
+$('#cover_image_selection').append("<img src='<%= @image.image.url(:thumb).to_s %>' style='height:50px; width:50px; cursor:pointer;' id='thumb-selction-<%= @image.id %>' data-cover-image-id='<%= @image.id %>' data-image-src='<%= @image.image.url(:thumb).to_s %>' class='thumb-selection' /> ");
+$('#heading_desc').html("<h4>Pick your cover image below</h4>");
+$("input[name='album_image_id[]']").val("<%= @image.id %>");
+
+//for updating the post image by admin
+$('#post_image_update').html("<p class='image-area' id='edit_post_image' style='height: <%= @image.thumb_height %>px;'> <img src='<%= @image.image.url(:thumb).to_s %>' data-id='<%= @image.id %>'</p>");
+
+/*$("img[id^='thumb-selction-']").live('click', function(){
+    var image_id = $(this).attr("id").split('-')[2];
+    $(this).toggleClass("selected");
+    $(this).toggleClass('color-change');
+    var arr = $("img.selected").map(function(){
+            return $(this).attr("data-cover-image-id");
+            }).get();
+    console.log(arr);
+	console.log(arr[(arr.length) - 1]);
+	$("input[name='cover_image_id']").val(arr[(arr.length) - 1]);
+});*/
+
+
+
+var imageIds = $("input[name='image_id']").val();
+if (imageIds != "")  {
+	imageIds = imageIds + "-<%= @image.id %>";
+} else {
+	imageIds = "<%= @image.id %>";
+}
+$("input[name='image_id']").val(imageIds);
+
+console.log(ImageIds);
+
+/*
+<p class="image-area" 
+	rel='group' 
+	style="height: <%= @image.thumb_height %>px;">
+    <%= link_to image_tag(@image.image.url(:thumb))%>
+</p>*/
+
+/*$('.image_upld').html("<p class='image-area' rel='group' style='height: <%= @image.thumb_height %>px;'> <%= link_to image_tag(@image.image.url(:thumb))%></p>");*/

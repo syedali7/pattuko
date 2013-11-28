@@ -1,0 +1,23 @@
+<ul>
+<% @artist.each do |a| %>
+	<li class="active">
+	<div class="notify-text float_L">
+		<%= link_to image_tag(a.artist_image.url,:size=>'50x50'),artist_path(a) %>
+	    <div class="w80p float_L ml10">
+	        <p class="bday_name"><%= link_to a.name,artist_path(a) %></p>
+	        <span class="age"><%= @year-a.dob.year %> years</span>
+	       <div id="<%= a.id%>com">
+	       <% if a.wishes.find {|w| w[:user_id] == current_user.id } %>
+	            <br/><br/>
+	    		<p style="background-color:#DDDDDD;">your greetings sent</p>
+	        <% else %>
+	            <input type="text" class="common_inpt" placeholder='wish here...'>
+	        	<input id="user_id" name="user_id" type="hidden" value=<%= current_user.id %> />
+	        	<input id="artist_id" name="id" type="hidden" value=<%= a.id %> />
+	        <% end %>
+	       </div>
+	    </div>
+	</div>
+	</li>	
+<% end %>
+</ul>

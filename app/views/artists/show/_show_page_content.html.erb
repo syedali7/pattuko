@@ -1,0 +1,93 @@
+<div class="artist_image_part float_L">
+    <img src="<%= @artist.artist_image.url %>" height="550" title="<%= @artist.name %>">
+</div>
+<div class="float_L artist_details_text" style="width:35%;" >
+    <p class="mt20">About <%= @artist.name %><br>
+        Birth Day   : <%= @artist.dob %><br>
+        Profession  : <%= @artist.profession %><br>
+        Famous For  : Rajakumarudu, Murari, Pokiri, More...
+    </p>
+
+    <ul class="artist_analytics float_L">
+        <li>
+            <span class="usr float_L">Users</span>
+            1102
+        </li>
+        <li>
+            <span class="usr float_L">Discussions</span>
+            1102
+        </li>
+    </ul>
+
+    <div class="float_L mt10">
+        <p class="float_L">Recent Trending:</p>
+        <ul class="artist_rec_trend float_L">
+            <li><a href="#">Seethamma vakitlo siri malle chettu crossed 200</a></li>
+            <li><a href="#">"No 1" will be for sankranthi</a></li>
+            <li><a href="#">Puri is going to direct Mahesh once again.</a></li>
+            <li><a href="#">Mahesh is going to work with shekar kammula</a></li>
+        </ul>
+    </div>
+    <p class="mt10 float_L">
+        <!-- Mahesh Babu is an Indian film actor best known for his work in Telugu cinema.
+        Born to actor Krishna in the Ghattamaneni family, Mahesh Babu faced 
+        the camera at the age of four as a child artist in 1979's Needa.
+        His first leading role was in the film Rajakumarudu, which was released in August . -->
+        <%= @artist.description %>
+    </p>
+</div>
+
+<div class="discussions float_R">
+    <p class="disc_head">
+        <a href="javascript:void(0);" class="float_L add_disc_btn"></a>
+        Discussions On <%= @artist.name %>
+        <a href="#" class="float_R disc_sett_btn"></a>
+    </p>
+
+    <div class="add_new_desc float_L" style="display:none">
+
+        <p id="err_msg"></p>
+
+           <%= form_tag "/discussions",:html=>{:method=>'post',:remote=>true,:id=>"disc_form"} do %> 
+                <textarea class="add_area_inpt" placeholder="@example" name="discription"></textarea>
+                <%= hidden_field_tag :artist_id, @artist.id %>
+                <% if current_user %>
+                    <%= hidden_field_tag :user_id,current_user.id %>
+                <% end %>
+                <div class="image-preview">
+                </div>
+                <p class="float_L add_media">
+                    <a href="javascript:void(0);" class="add_pho float_L">Add Photo</a>
+                    <a href="javascript:void(0);" class="add_vid float_L">Add Video</a>
+                </p>
+                <input type="submit" class="post_desc float_R" value="Post">
+           <% end %>
+
+
+           <%= form_tag "/images/discussions",:method=>"post",:id=>"discussions_image" do %>
+              <input type="file" name="image[image]" class="disc_image" style="display:none;">
+           <% end %>
+
+    </div>
+  
+    <ul class="desc_item float_L" id="dis_slim">
+        <% if @artist.discussions.present? %>
+            <% @artist.discussions.each do |d| %>
+                <li class="disc_li" disc-id =<%= d.id %> >
+                    <a href=<%= user_path(d.created_user) %>><img src=<%= d.user.image_url %> ></a>
+                    <a href=<%= user_path(d.created_user) %> class="link_text uname float_L"><%= d.user.username %></a>
+                    <span class="float_R desc_item_text">
+                      <!--  <a href="#" class="link_text">@devisriprasad</a> -->
+                        <%= raw( d.title ) %>
+                    </span>
+                    <p class="desc_details">
+                        <a href=<%= '/discussions/'+d.id.to_s+'/Artist/'+@artist.id.to_s %> class="float_L more_link">More</a>
+                        <span class="retweet_count float_L"><%= d.messages.count %></span>
+                        <span class="desc_date float_R">Created At :<%= d.created_at.to_date %></span>
+                    </p>
+                    <br/>
+                </li>
+            <% end %>
+        <% end %>
+    </ul>
+</div>

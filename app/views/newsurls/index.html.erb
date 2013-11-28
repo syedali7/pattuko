@@ -1,0 +1,38 @@
+<% if session[:admin]%>
+	<button><a href="/newsurls/album_urls" id = "album_urls">Alubu</a></button>
+	<% @newsurls.each do|n| %>	
+	<table id = "table-<%= n.id %>">
+	<tr style=<%= cycle("background-color:#d0e4fe;","background-color:#e4e4e4;") %> >
+		<td style ="width:500px;" id ="mani-<%= n.id %>">	
+			<a href="<%= n.news_url %>" target = "_blanck"><%= n.news_url %></a>
+		</td>
+		<td style ="width:200px;">
+			<input type="hidden" class = "bigdrop" id = "movie_select_dropdown-<%= n.id %>" style="width: 200px;" >
+		</td>
+		<td style ="width:200px;padding-left:10px">
+			<input type="hidden" class = "bigdrop" id = "artist_select_dropdown-<%= n.id %>" style="width: 200px;" >
+		</td>
+		<td style ="width:250px;padding-left:10px;">
+			<input type='text_field' name="" placeholder="image_url" id = "image_url-<%=n.id %>">
+		</td>
+		<td>
+
+			<a href="<%= n.image_url %>" target="_blank">
+			 <img src="<%= n.image_url %>"  style = "height:50px;width:50px"></img>
+			</a>
+		</td>
+		<td>
+			<button id = "news_scraping-<%=n.id%>" >Post</button>
+		</td>
+		<td style="padding-left:20px;">
+			<button> <a id = "delete-<%= n.id %>"href="javascript:void(0);">Delete</a></button>
+			<%#= link_to 'delete', newsurl_path(:id => n.id),:confirm => 'Are you sure?', :method => :delete %>
+
+		</td>		
+	</tr>
+	<br/>
+	</table>
+	<% end %>
+<% end %>	
+
+<%= paginate @newsurls%>

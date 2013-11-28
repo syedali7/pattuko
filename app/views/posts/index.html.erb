@@ -1,0 +1,59 @@
+\<% if cookies[:first_time] && Rails.env == 'production' && false %>
+          <!-- home page widgets -->
+          <div class="cont_body">
+              <section class="widget_container mt20">
+                  <aside class="widg_left float_L">
+                    <h2 class="secondary_header">Top Stories</h2>
+                    <ul>
+                      <%= eval(ViewBlock.find(1).content) %>
+                    </ul>
+                  </aside>
+                  <aside class="widg_center float_L">
+                    <h2 class="secondary_header">Image Gallery</h2>
+                    <%= eval(ViewBlock.find(4).content) %>
+                  </aside>
+                  <aside class="widg_right float_L">
+                    <h2 class="secondary_header">Trending</h2>
+                    <a class="prev float_L" href="#"></a> <a class="next float_R" href="#"></a>
+                    <ul class="slider" style="overflow:hidden; height:231px;">
+                      <%= eval(ViewBlock.find(2).content) %>
+                    </ul>
+                  </aside>
+                  <% if (current_user.present?)==false %>
+                      <p class="section_footer float_L">
+                        <a href="<%=user_omniauth_authorize_path(:facebook)%>" class="widget_fb_icon float_L" style='width:235px;'></a>
+                        <span>to discover more about your favorite heros ,heroines, and movies...</span>
+                      </p>
+                  <% end %>
+              </section>
+          </div>
+          <!--home page widgets ends -->
+<% else %>
+          <% if current_user.nil? %>
+            <% unless params[:page].to_i > 1 %>
+                <div class="welcome_widget_container">
+                    <!-- <a href="#" class="widget_close_icon"></a> -->
+                    <h1>Welcome to the social movie network</h1>
+                    <span>
+                        Discover more about your favourite 
+                        <a href="">heros</a>, 
+                        <a href="">heroines</a> and 
+                        <a href="">movies</a>
+                         and strengthen your fan club
+                     </span> 
+                    <a href="<%=user_omniauth_authorize_path(:facebook)%>" class="welcome_widg_fb_icon" style="width: 235px;"></a>
+                </div>
+            <% end %>
+          <% end %>
+<% end %>  
+<section id="content" style="margin-top: 10px;">
+    <div id="posts_container" class="container transitions-enabled clearfix" style="margin: 0 auto;" data-es-query='{ "bool" : { "must" : [{"wildcard" :{"title" : "*"} }]} }'>
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+    </div>
+</section>
+<div id='movie_facet' style='display:none'><%= @movie %></div>
+<div id='artist_facet' style='display:none'><%= @artist %></div>

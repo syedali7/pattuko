@@ -1,0 +1,23 @@
+<ul>
+	<% @notifications.each do|n| %>
+	    <div class="notify-text float_L">
+		<% begin %>
+			<li class=<%= n.seen ? ('') : ("active") %> >
+			    <a href="/users/<%= n.friend_id %>">
+			  	    <img src=<%= User.find(n.friend_id).image_url %> width="50" height="50">
+			    </a>
+			    <a href="/users/<%= n.friend_id %>" class='note_seen'>
+			        <div class="w85p float_L ml10">
+	                     <%= n.notification %>
+		                <span class="notify_date"><%= n.created_at.strftime("at %d %b %Y %I:%M%p") %>
+		                </span>
+			        </div>
+			    </a>
+			</li>
+		<% rescue %>
+		<% end %>
+	    </div>
+	<% end %>
+</ul>
+
+

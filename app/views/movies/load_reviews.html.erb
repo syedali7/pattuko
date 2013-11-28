@@ -1,0 +1,18 @@
+<% unless current_user.nil? %>
+	<% @reviews.each do |f| %>
+		<div class="comment_item float_L">
+			<% unless f.user_id.nil? %>
+				<% @user = User.find(f.user_id) %>
+				<img src="<%= @user.image_url %>" class="user_icon float_L">
+				<div class="float_R w255">
+					<p class="punchline"><b><%= @user.username %></b><br><%= f.analysis %> </p>
+					<span class="review_bottom">
+						<a href="javascript:;" class="like_comment" id="like_review-<%= f.user_id %>-<%= f.id%>"> <p class="like"><%=Review.find(f.id).likes.where(:value=> 1).count %></p></a>
+						<a href="javascript:;" class="dislike_comment" id="dislike_review-<%= f.user_id %>-<%= f.id%>"><p class="dislike"><%= Review.find(f.id).likes.where(:value => 0).count %></p></a>
+						<span class="comment_date"><%= f.created_at %></span>
+				   </span>
+				</div>
+			<% end %>	
+		</div>	
+	<% end %>		
+<% end %>

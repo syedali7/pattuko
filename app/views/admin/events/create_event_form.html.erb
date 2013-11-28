@@ -1,0 +1,33 @@
+<!-- <h1 class='message' style='display:none'> Wait untill process completes ........</h1> -->
+<div class='create_event'>
+	<%= form_tag 'javascript:void(0)' do %>
+	    <%#= label_tag :Event %>
+	    <%# movies = Movie.where(:edited => 1)%>
+	    <%#= select_tag :movie, options_from_collection_for_select( movies,'id', 'name'),{ include_blank: 'select movie to edit' }%>
+	    <!-- description text field tag -->
+	    <%#= text_field_tag :description ,'',:id =>"description",:placeholder => 'description' %>
+
+
+	    <%#= select_tag "Eventable Type", "<option>Movie</option><option>Artist</option>".html_safe %>
+	    <h3> Create the event </h3>
+	    <%= text_field_tag :name, nil, :placeholder => "Event name" %>
+	    <p> Select the Event Type by clicking the below link </p>
+	    <br/>
+	    <%= link_to 'Movie','javascript:void(0);',:id => 'movie_event' %><br/>
+	    <%= link_to 'Artist','javascript:void(0);',:id => 'artist_event' %>
+	    <div class="movie_event_select" style="display:none;">
+		    <% movies = Movie.where(:wood_id => 1)%>
+		    <%= select_tag :movie_event_tag, options_from_collection_for_select( movies,'id', 'name'),
+		    	:style => "width:300px" %>
+		</div>
+
+		<div class="artist_event_select" style="display:none;">
+		    <% artists = Artist.find(:all) %>
+		    <%= select_tag :artist_event_tag, options_from_collection_for_select( artists,'id', 'name'),
+		    	:style => "width:320px" %>
+		</div>
+		<br/>
+
+        <%= link_to "Submit", "#", :id => 'create_event' %>
+	<% end %>
+</div>

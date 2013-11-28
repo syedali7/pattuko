@@ -1,0 +1,10 @@
+<% video = Video.find(post.postable_id) %>
+<p class="image-area"
+	id="post-<%= post.id %>"
+	rel="group" title = "<%= post.title %>">
+	<%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+		:class => 'lazy',
+		:style => "height:360px;width:225px;", 
+		:data => {"original" => video.youtube_code}), post_path(post) %>
+	<a href="<%=post_path(post)%>"><span class="pt_video_icon"></span></a>
+</p>

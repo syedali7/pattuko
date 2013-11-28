@@ -1,0 +1,43 @@
+
+  <li>
+    <%unless @related_movies.nil?%>
+      <% @related_movies.each do|rm|%>
+          <% related_movie = Movie.find(rm.related_movie_id)%>
+          <li>
+            <figure class="float_L"><a href="<%= movie_path(related_movie)%>">
+              <img src="<%= related_movie.movie_image.url(:thumb) %>" alt="acotor"></a>
+            </figure>
+            <span class="float_L"><a href="<%= movie_path(related_movie) %>"><%= related_movie.name %></a></br>
+                released on <%= related_movie.year %></br>
+                <%= related_movie.hero.name %></br>
+                 fans : <%= Movie.find(rm.related_movie_id).fans.count %></span>
+            <% unless current_user.nil? %>
+                <% @fan = Movie.find(related_movie.id).fans %>
+                <% unless @fan.empty? %>
+                    <% @fan.each do|f| %>
+                        <% unless f.user_id == current_user.id %>
+                            <input class="float_R cmn_btn" 
+                            id="related_movie_fan"
+                            data-movie-id="<%= related_movie.id%>"
+                            type="submit" value="I'm Fan"/>
+                        <% else %>
+                            <!-- <h5>ur'fan</h5> -->
+                        <% end %>
+                    <% end %> 
+                <% else %>
+                    <input class="float_R cmn_btn"
+                    id="related_movie_fan"
+                    data-movie-id="<%= related_movie.id%>"
+                    type="submit" value="I'm Fan"/>             
+                <% end %>    
+                
+            <% else %>
+                <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                    <input class="float_R cmn_btn" type="submit" value="I'm Fan"/>
+                </a>
+            <% end %>      
+          </li>
+      <%end%>
+    <%end%>  
+  </li>
+      

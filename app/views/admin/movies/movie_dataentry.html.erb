@@ -1,0 +1,13 @@
+<h1 class='message' style='display:none'> Wait untill process completes ........</h1>
+	<div class='bulk_edit'>
+	<%= form_tag 'javascript:void(0)' do %>
+	    <%= label_tag :movie %>
+	    <% movies = Movie.all%>
+	    <%= select_tag :movies1, options_from_collection_for_select( movies,'id', 'name'),{ include_blank: 'select movie to edit' }%>
+	    <!-- description text field tag -->
+	    
+        <div class = "movie_id">
+			<%= render partial: "admin_dataentry" %>
+		</div>
+	<% end %>
+	 	

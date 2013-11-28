@@ -1,0 +1,22 @@
+<li>
+    <%unless @people.nil?%>
+        <% @people.each do |p| %>
+            <li>
+                <figure class="float_L">
+                    <a href="<%= movie_path(p) %>">
+                        <img src="<%= p.movie_image.url(:thumb)%>" alt="acotor">
+                    </a>
+                </figure>
+                <span class="float_L">
+                   <a href="<%= movie_path(p) %>"><%= p.name %></a>
+                    <%= pluralize( p.fans.count, 'fan' ) %> 
+                </span>
+                <% if current_user %>
+                    <input class="float_R cmn_btn" id="movie-<%= p.id %>-<%= current_user.id %>" type="submit" value="I'm Fan">
+                <% else %>
+                    <input class="float_R cmn_btn" id="movie-<%= p.id %>" type="submit" value="I'm Fan">
+                <% end %>
+            </li>
+        <% end %>
+    <% end %>  
+</li>

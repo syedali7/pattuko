@@ -1,0 +1,61 @@
+<%= form_tag movie_artists_quick_edit_artists_path do %> 
+	<h1><%= @movie.name %></h1>
+	<%= hidden_field_tag 'movie_id',@movie.id%>
+	<table>
+		<tr>
+	    	<td><%= label_tag "Movie" %></td>
+	        <td>
+	        	<%= select_tag :movie, options_for_select(ArtistType.find(3).artists.
+	        		map{|u| [u.name, u.id]}.uniq),
+	        	 :multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	    	<td><%= label_tag "Hero" %></td>
+	        <td>
+	        	<%= select_tag :hero, options_for_select(ArtistType.find(3).artists.
+	        		map{|u| [u.name, u.id]}.uniq),
+	        	 :multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td><%= label_tag "Heroine" %></td>
+	        <td>
+	        	<%= select_tag :heroine, 
+	        	options_for_select(ArtistType.find(3).artists.map{|u| [u.name, u.id]}.uniq),
+	        	:multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td><%= label_tag "Villian" %></td>
+	        <td>
+	        	<%= select_tag :villain,
+	        	 options_for_select(ArtistType.find(3).artists.map{|u| [u.name, u.id]}.uniq),
+	        	 :multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td><%= label_tag "Comedian" %></td>
+	        <td>
+	        	<%= select_tag :comedian, 
+	        	options_for_select(ArtistType.find(3).artists.map{|u| [u.name, u.id]}.uniq),
+	        	:multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td><%= label_tag "Character Artist" %></td>
+	        <td>
+	        	<%= select_tag :character_artist,
+	        	options_for_select(ArtistType.find(3).artists.map{|u| [u.name, u.id]}.uniq),
+	        	:multiple => true %>
+	        </td>
+	    </tr>
+	    <tr>
+	    	<td><%= label_tag "Description" %></td>
+	    	<td><%= text_area_tag :description %></td>
+	    <tr>
+	    <tr>
+	    	<td><%= submit_tag 'submit' %></td>
+		</tr>
+	</table>
+<% end %>

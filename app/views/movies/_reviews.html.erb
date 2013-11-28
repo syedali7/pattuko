@@ -1,0 +1,66 @@
+
+
+	<div class="review_tab">
+		<div class="review_tab_container">
+			<div class="float_L w635">
+				<% @reviews.each do|r| %>
+					<%unless r.website_url.nil?%>
+						<div class="review_item float_L">
+							<h1 class="site_name"><%= Website.find(r.website_id).name %> : <%= r.rating %>/5</h1>
+							<ul class="float_L rating mt0 mb10">
+					            <div class='star_rating'>
+					            	<% (0...r.rating).each do %>
+					            		<li type="radio" name="star" ></li>
+									<% end %>
+				                    <!-- <input type="radio" name="example" class="rating" />
+				                    <input type="radio" name="example" class="rating" />
+				                    <input type="radio" name="example" class="rating"  />
+				                    <input type="radio" name="example" class="rating" />
+				                    <input type="radio" name="example" class="rating" /> -->
+			                	</div>
+				            </ul>
+							<p class="punchline"><b>Punch line : </b><%= r.punchline %>.</p>
+							<p class="punchline"><b>Tail Piece : </b>I found the film is intresting till the scene hero entering pakistan. <%= r.analysis %>
+							 <a href="javascript:;" class="read_more"><!--read more...--></a></p>
+							<% unless current_user.nil? %>
+								<span class="agr_disagr"><a href="javascript:;" id="like_reviews-<%= current_user.id %>-<%= r.id%>">Agree (<%=Review.find(r.id).likes.where(:value=> 1).count %>)</a><a href="javascript:;" id="dislike_review-<%= r.user_id %>-<%= r.id%>">Disagree (<%=Review.find(r.id).likes.where(:value=> 1).count %>)</a>
+								</span>
+							<% end %>	       
+						</div>
+					<% end %>
+				<% end %>
+			</div>
+
+			<div class="float_R">
+				<div class="reviewtab_comments">
+					<h2 class="secondary_header mt0">Review about this post</h2>
+					<div class="comment_item float_L">
+					<img src="<%= @movie.movie_image.url(:medium) %>" class="user_icon float_L">
+					<div class="float_R w255">
+					<textarea class="small_textarea" placeholder="Comment Here..."></textarea>
+					<a href="javascript:;" class="cancel_btn">Cancel</a>
+					<a href="javascript:;" class="post_btn">Post</a>
+				</div>
+			</div>
+			<div class="rivews_res">
+				<% unless current_user.nil? %>
+					<%@reviews.last(10).each do |f| %>
+						<div class="comment_item float_L">
+							<% unless f.user_id.nil? %>
+								<% @user = User.find(f.user_id) %>	
+								<img src="<%= @user.image_url %>" class="user_icon float_L">
+								<div class="float_R w255">
+									<p class="punchline"><b><%= @user.username %></b><br><%= f.analysis %> </p>
+									<span class="review_bottom"><a href="javascript:;" class="like_comment" id="like_review-<%= f.user_id %>- <%= f.id%>" ><p id = "likes_count"><%=Review.find(f.id).likes.where(:value=> 1).count %></p></a><a href="javascript:;" class="dislike_comment" id="dislike_review-<%= f.user_id %>-<%= f.id%>"><%= Review.find(f.id).likes.where(:value=> 0).count %></a><span class="comment_date"><%= f.created_at %></span></span>
+								</div>
+							<% end %>	
+						</div>	
+					<% end %>
+				<% end %>	
+			</div>
+			
+		</div><!--review_tab_container-->
+	</div><!--Review Tab container-->
+	
+
+

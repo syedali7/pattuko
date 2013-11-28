@@ -1,0 +1,13 @@
+<p style="background-color:'#75A3FF';">The following movies has no images</p>
+<table'>
+	 <th>id   </th>
+	 <th>movie</th>
+
+  <%@type.each do|t| %>
+	 <tr style="background-color:<%= cycle('#75A3FF;','#DDDDDD;') %>">
+	    <td><%= t.id %></td>
+	    <td><%= t.name %></td>
+	 </tr> 
+  <% end %>
+</table>
+<p><%= link_to 'CLICK TO UPDATE',movies_url %></p>

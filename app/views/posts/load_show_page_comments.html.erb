@@ -1,0 +1,45 @@
+<% @post.comments.each do |comment| %>
+    <% unless comment.user.nil? %>
+        <div class="comment_area float_L mb5 mt5">
+            <figure class="float_L">
+                <a href= "<%= user_path(comment.user)%>">
+                    <img src="<%= comment.user.image_url %>" width="40"height="40" alt="Profile">
+                </a>
+            </figure>
+            <div class="comment_details float_L">
+                <% if current_user %>
+                    <p class="float_L" 
+                    id="current_user-<%= current_user.id %>-post-<%= @post.id %>">
+                <% else %>
+                    <p class="float_L">
+                <% end %>
+                    <%= comment.body %><br>
+                    <% if current_user %>
+                        <% if comment.likes.collect(&:user_id).include?(current_user.id) %>
+                            <a href="javascript:void(0);" class="float_L" 
+                                id="like-<%= comment.id %>-<%=current_user.id %>">
+                                Liked
+                            </a>
+                        <% else %>
+                            <a href="javascript:void(0);" class="float_L" 
+                                id="like-<%= comment.id %>-<%=current_user.id %>">
+                                Like
+                            </a>
+                        <% end %>
+                        <% if current_user.id == comment.user.id %>
+                            <a href="javascript:void(0);" class="float_L"
+                            id="delete-<%= comment.id %>-<%= current_user.id%>-<%= @post.id %>">
+                                Delete
+                            </a>
+                        <% end %>
+                    <% else %>
+                        <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="float_L">
+                            Like
+                        </a>
+                    <% end %>
+                </p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    <% end %>
+<% end %>

@@ -1,0 +1,36 @@
+<% style =  Style.find(params[:id]) %>
+<table>
+		<tr>
+			<td><b>Title</b> </td>
+			<td><%= style.title %></td>
+		</tr>
+		<tr>
+			<% movie = Movie.find(style.movie_id) %>
+			<td><b>Movie</b> </td>
+			<td><%= movie.name %></td>
+		</tr>
+		<tr>
+			<% artist = Artist.find(style.artist_id) %>
+			<td><b>Artist</b> </td>
+			<td><%= artist.name %></td>
+		</tr>
+		<tr>
+			<td><b>image</b></td>
+			<td><img src="<%= style.image.url(:thumb) %>"/></td>
+		</tr>
+</table>
+<br><br>
+<h2>Relevant Products </h2>
+<% style.products.each do |product| %>
+	<ul>
+		
+		<img src="<%= product.image.url(:thumb) %>"/>
+		<li><h2>Title:  <%= product.title %></h2></li>
+		<li><h2>Brand:  <%= product.brand %></h2></li>
+		<li><h2>Price:  <%= product.price %></h2></li>
+		<li><h2>Size available:  <%= product.size %></h2></li>
+		<li><h2>URL:  <%= product.product_url %></h2></li>
+		<li><h2>Store: <%= product.store %></h2></li>
+	</tr>
+
+<% end %>

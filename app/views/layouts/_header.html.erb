@@ -1,0 +1,410 @@
+<div class="header_container">
+
+    <!-- <a href="" class="site_logo"><img src="/images/logo.png"></a> -->
+
+    <% if current_page?('/') %>
+        <h1 style="margin-bottom:0em;">
+            <span style="float: left;color: #365D98;">
+                <img src="<%= asset_path("logo.png") %>" class="site_logo_index"/>
+            </span>
+        </h1>
+        <!-- <h1 class="site_logo_index">Pattuko</h1> -->
+    <% else %>
+        <%= link_to image_tag(asset_path("logo.png")),root_path,:class => 'site_logo' %>    
+    <% end %>
+    <div class="header_inner">
+        <!-- <a href="#" class="seconday_logo"></a> -->
+        <% cache("default_header") do %>
+            <nav class="float_L">
+                <ul class="navigation_menu">
+                    <li>
+                        <% if current_user %>
+                            <a href="<%= feeds_path %>" class="drop">Feed</a>
+                        <% else %>
+                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank" class="drop">Feed</a>
+                        <% end %>
+                    </li>
+                    <li>
+                    <a href="/news" class="drop">News</a><!-- Begin 5 columns Item -->
+                    <div class="dropdown_5columns"><!-- Begin 5 columns container -->
+                        <div class="float_L">
+                            <div class="w260 float_L">
+                                <p class="drpdwn_heading">Latest News</p>
+                                <ul class="mov_list">
+                                    <% Post.find(:all,:limit => 6,:conditions => { :postable_type => 'News' }).each do |post| %>
+                                        <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>    
+                                    <% end %>
+                                </ul>
+                            </div>
+                            <div class="w260 float_L ml20">
+                                <p class="drpdwn_heading">Recently Viewed News</p>
+                                <ul class="mov_list" id="recently_viewed_news"></ul>
+                            </div>
+                        </div>
+                        <div class="float_R">
+                            <div class="recent_movies float_L">
+                                <p class="drpdwn_heading">Top News</p>
+                                <% count = 0 %>
+                                <% Post.order('total_views desc').each do |post| %>
+                                    <% if post.postable_type == "News" %>
+                                        <% unless count == 2 %>
+                                            <div class="recent_movie_item float_L">
+                                                <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                                :class => 'lazy w180h240',
+                                                :data => {"original" => post.image.url(:thumb).to_s}), post_path(post) %>
+                                            </div>
+                                            <% count = count + 1 %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
+                    <li>
+                    <a href="<%= posts_path %>" class="drop">Posts</a><!-- Begin 4 columns Item -->
+                    <div class="dropdown_4columns"><!-- Begin 4 columns container -->
+                        <div class="float_L">
+                            <div class="w260 float_L">
+                                <p class="drpdwn_heading">Latest Post</p>
+                                <ul class="mov_list">
+                                    <% Post.order('created_at desc').first(6).each do |post| %>
+                                        <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>    
+                                    <% end %>
+                                </ul>
+                            </div>
+                            <div class="w260 float_L ml20">
+                                <p class="drpdwn_heading">Recently Viewed Posts</p>
+                                <ul class="mov_list" id="recently_viewed_posts"></ul>
+                            </div>
+                        </div>
+                        <div class="float_R">
+                            <div class="recent_movies float_L">
+                                <p class="drpdwn_heading">Top Posts</p>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
+                    <li>
+                    <a href="<%= movies_path %>" class="drop">Movies</a><!-- Begin 2 columns container -->
+                    <div class="dropdown_2columns"><!-- Begin 2 columns container -->
+                        <div class="float_L">
+                            <div class="w170 float_L">
+                                <p class="drpdwn_heading">UpComing Movies</p>
+                                <ul class="mov_list">
+                                    <ul class="mov_list">
+                                    </ul>
+                                </ul>
+                            </div>
+                            <div class="w170 float_L ml20">
+                                <p class="drpdwn_heading">Trending Movies</p>
+                                <ul class="mov_list">
+                                </ul>
+                            </div>
+                            <div class="w170 float_L ml20">
+                                <p class="drpdwn_heading">By Hero</p>
+                                <ul class="mov_list">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="float_R">
+                            <div class="recent_movies float_L">
+                                <p class="drpdwn_heading">Join Fan Club</p>
+                                <div class="recent_movie_item float_L">
+                                    <a href="<%= movie_path(:id => 56) %>">
+                                        <img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/217/thumb_Ramayya_vastavaya-release-date.jpg" 
+                                        class="w150h200"></a>
+                                    <% if current_user %>
+                                        <input type="button" id="header-fan"
+                                            class="cmn_btn posclass" value="I'm Fan"/>
+                                    <% else %>
+                                        <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                            <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                        </a>
+                                    <% end %>
+                                    <p><b>Ramaiya Vasthavaiya</b><br>
+                                    22 Fans</p>
+                                </div>
+                                <div class="recent_movie_item float_L ml10">
+                                    <a href="<%= movie_path(:id => 4369) %>"><img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/819/thumb_Attarintiki_Daredi_Latest_Romantic_Still.jpg" 
+                                        class="w150h200"></a>
+                                    <% if current_user %>
+                                        <input type="button" id="header-fan1" class="cmn_btn posclass" value="I'm Fan"/>
+                                    <% else %>
+                                        <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                            <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                        </a>
+                                    <% end %>
+                                    <p><b>Atharintiki Dharedhi</b><br>
+                                    65 Fans</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End 2 columns container --> 
+                    </li>
+                    <li><a href="<%= artists_path %>" class="drop">Artists</a><!-- Begin 3 columns container -->
+                    <div class="dropdown_3columns"><!-- Begin 3 columns container -->
+                            <div class="float_L">
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Hero</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Heroine</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Director</p>
+                                    <ul class="mov_list">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="float_R">
+                                <div class="recent_movies float_L">
+                                    <p class="drpdwn_heading">Join Fan Club</p>
+                                    <div class="recent_movie_item float_L">
+                                        <a href="<%= movie_path(:id => 56) %>">
+                                            <img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2109/thumb_Pawan-Kalyan-is-still-ruling-the-roost.jpg"
+                                            class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan3"
+                                                class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Pawan Kalyan</b><br>
+                                        22 Fans</p>
+                                    </div>
+                                    <div class="recent_movie_item float_L ml10">
+                                        <a href="<%= movie_path(:id => 4369) %>"><img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2028/thumb_Golden-leg-heroine-with-a-flop-hero.jpg" class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan4" class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Samantha</b><br>
+                                        65 Fans</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/albums" class="drop">Albums</a>
+                        <div class="dropdown_1columns">
+                            <div class="float_L">
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Movies</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Hero</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Heroine</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="float_R">
+                                <div class="recent_movies float_L">
+                                    <p class="drpdwn_heading">Join Fan Club</p>
+                                    <div class="recent_movie_item float_L">
+                                        <a href="<%= movie_path(:id => 56) %>">
+                                            <img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2109/thumb_Pawan-Kalyan-is-still-ruling-the-roost.jpg"
+                                            class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan5"
+                                                class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Pawan Kalyan</b><br>
+                                        22 Fans</p>
+                                    </div>
+                                    <div class="recent_movie_item float_L ml10">
+                                        <a href="<%= movie_path(:id => 4369) %>"><img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2028/thumb_Golden-leg-heroine-with-a-flop-hero.jpg" class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan6" class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Samantha</b><br>
+                                        65 Fans</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </li>
+                    <li>
+                        <a href="<%= shop_index_path %>" class="drop">Shop</a>
+
+
+                        <div class="dropdown_0columns">
+                            <div class="float_L">
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Movies</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Hero</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                                <div class="w170 float_L ml20">
+                                    <p class="drpdwn_heading">By Heroine</p>
+                                    <ul class="mov_list">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="float_R">
+                                <div class="recent_movies float_L">
+                                    <p class="drpdwn_heading">Join Fan Club</p>
+                                    <div class="recent_movie_item float_L">
+                                        <a href="<%= movie_path(:id => 56) %>">
+                                            <img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2109/thumb_Pawan-Kalyan-is-still-ruling-the-roost.jpg"
+                                            class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan7"
+                                                class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank" >
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Pawan Kalyan</b><br>
+                                        22 Fans</p>
+                                    </div>
+                                    <div class="recent_movie_item float_L ml10">
+                                        <a href="<%= movie_path(:id => 4369) %>"><img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/2028/thumb_Golden-leg-heroine-with-a-flop-hero.jpg" class="w150h200"></a>
+                                        <% if current_user %>
+                                            <input type="button" id="header-fan8" class="cmn_btn posclass" value="I'm Fan"/>
+                                        <% else %>
+                                            <a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank">
+                                                <input type="button" class="cmn_btn posclass" value="I'm Fan">
+                                            </a>
+                                        <% end %>
+                                        <p><b>Samantha</b><br>
+                                        65 Fans</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <% if current_user.nil? %>
+                        <!-- <li class="take_tour"><a href="javascript:void();" class="drop">Take a tour</a></li> -->
+                    <% end %>
+                    
+                </ul>
+            </nav>
+        <% end %>
+    
+        <div class="notify float_R">
+                <% if current_user %>
+                    <% if session[:admin] %>
+                        <a href="javascript:void(0);" class="super_fan_btn super-fan float_L"></a>
+                    <% end %>
+                <div class="share_area float_L">
+                    <a href="javascript:void(0);" class="share_btn float_L">Share</a>
+                        <div class="share_popup" style="display:none;">
+                            <div class="up_triangle"></div>
+                            <div class="mentions-input-box">
+                                <input class="share_title_inpt float_L" placeholder="Title..." name="title"></input>
+                            </div>
+                            <%= hidden_field_tag(:user_id,current_user.id)%>
+                            <textarea class="share_desc_inpt float_L" placeholder="Description" name="discription" ></textarea>
+                            <p class="share_items float_L">
+                            <a href="javascript:;" class="share_pho float_L">Photo</a>
+                        <!--    <a href="javascript:;" class="share_alb float_L">Albums</a>
+                            <a href="javascript:;" class="share_vid float_L">Video</a>
+                            <a href="javascript:;" class="share_new float_L">News</a>-->
+                            </p>
+                            
+                            <div class="float_L w100 show_hide_area" style="display:none;">
+                                <p class="selected_item_area">
+                                    <img src="" />
+                                </p>
+                                        <div class="float_L">
+                                        <form accept-charset="UTF-8" action="/images/discussions" method="get" class="dummy_class">
+                                            <input type="file" name="image[image]" class="dummy_class_btn" id="discussions_image"> 
+                                        </form>
+                                        </div>
+                            </div>
+                            <input type="button" class="share_send_btn float_L" value="Share">                
+                        </div>
+                </div>                   
+
+                    <div class="birthday_noitfy float_L">
+                        <a href="javascript:void(0);" class="birthday_icon"></a>
+                        <div class="birthday_popup">
+                            <div class="pointer"></div>
+                            <h4>Birthday's</h4>
+                            <div id="bdaylist">
+                        
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="notify_user float_L">
+                        <% if(current_user.notifications.where(:seen=>false).count > 0) %>
+                          <span id='ncount'>
+                            <%= current_user.notifications.where(:seen=>false).count %>
+                          </span>
+                        <% end %>
+                    </div>
+
+                    <div class="notify_area">
+                        <div class="pointer"></div>
+                        <h4>Notifications</h4>
+                        <div id='notifylist'></div>   
+                    </div>
+                <% end %>  
+
+                <% if current_user %>
+                        <a href="javascript:void(0);" class="header_user_icon float_L">
+                            <img src="<%= current_user.image_url %>"/>
+                        </a>
+                    <span class="logout_popup"><%= link_to 'Logout' , destroy_user_session_path, :method =>:delete %><br>
+                        <a href="javascript:void(0);" class="take_tour_user  drop">Take a tour</a>
+                    </span>
+                <% else %>
+                    <%= link_to image_tag(asset_path("fb_login_icon.png")),user_omniauth_authorize_path(:facebook),
+                    :class => 'header_fb_icon float_L' %>        
+                <% end %>
+
+
+                <!-- <a href="" class="header_fb_icon float_L"><img src="images/fb_login_icon.png"> -->
+                <%#= link_to image_tag(asset_path("fb_login_icon.png")),user_omniauth_authorize_path(:facebook),
+                    :class => 'header_fb_icon float_L' %>        
+                <!-- </a> -->
+                <!-- <a href="" class="header_user_icon float_L"><img src="images/movie_filter_image1.png"> -->
+                <%#= link_to image_tag(asset_path("movie_filter_image1.png")),root_path,:class => 'header_user_icon float_L' %>
+                <!-- <span class="logout_popup">Logout</span> -->
+                <!-- <div class="logout_popup"><%#= link_to 'Logout' , destroy_user_session_path, :method =>:delete %></div> -->
+                <!-- </a> -->
+        </div>  
+    </div>
+
+    <%= form_tag top_search_posts_path, :id => 'search_form' do  %>
+        <%= text_field_tag :search_term, '', :class => 'search_filed', :placeholder => 'search here..'%>
+    <% end %>
+
+</div>

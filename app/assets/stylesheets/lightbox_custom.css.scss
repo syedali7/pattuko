@@ -1,0 +1,392 @@
+.jumbotron {
+  background: #793e3a; /* Old browsers */
+  background: -moz-linear-gradient(45deg,  #793e3a 0%, #170f3e 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#793e3a), color-stop(100%,#170f3e)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg,  #793e3a 0%,#170f3e 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(45deg,  #793e3a 0%,#170f3e 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  #793e3a 0%,#170f3e 100%); /* IE10+ */
+  background: linear-gradient(45deg,  #793e3a 0%,#170f3e 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#793e3a', endColorstr='#170f3e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.subhead .btn {
+	padding: 11px 19px;
+	font-size: 24px;
+	font-weight: 200;
+	color: #fff;
+	border: 0;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 5px rgba(0,0,0,.25);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 5px rgba(0,0,0,.25);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 5px rgba(0,0,0,.25);
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+	margin-top: 18px;
+}
+
+.masthead {
+	padding-top: 110px;
+	padding-bottom: 60px;
+}
+
+.subhead {
+	padding-top: 90px;
+	padding-bottom: 40px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .span4, .marketing .span4 p, .marketing .marketing-byline {
+  text-align: center;
+}
+.marketing .marketing-byline.left {
+  text-align: left;
+  margin-top: -50px;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing p, .hero-unit {
+  text-align: left;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+.featurette {
+  overflow: hidden; /* Vertically center images part 2: clear their floats. */
+  text-align: left;
+}
+.featurette-image {
+  margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+}
+
+/* Give some space on the sides of the floated elements so text doesn't run right into it. */
+.featurette-image.pull-left {
+  margin-right: 40px;
+}
+.featurette-image.pull-right {
+  margin-left: 40px;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-size: 50px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-bottom: 60px !important;
+}
+
+.thumbnail > img {
+  margin: 0 auto;
+}
+
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+.featurette {
+height: auto;
+padding: 0;
+}
+.featurette-image.pull-left,
+.featurette-image.pull-right {
+display: block;
+float: none;
+max-width: 40%;
+margin: 0 auto 20px;
+}
+
+
+
+.featurette-heading {
+font-size: 30px;
+}
+.featurette .lead {
+font-size: 18px;
+line-height: 1.5;
+}
+
+.comments {
+	display: none;
+	position: fixed;
+	width: 260px;
+	top: 20px;
+	bottom: 20px;
+	right: 20px;
+	background: #fff;
+	z-index: 100100;
+	padding: 10px;
+	font-size: 16px;
+
+	-webkit-border-radius: 2px;
+			border-radius: 2px;
+}
+.ilightbox-loader.custom-class {
+	border: #111 2px solid;
+}
+.ilightbox-holder.custom-class {
+	background: #111;
+	padding: 3px;
+}
+.ilightbox-holder.ilightbox-fullscreen {
+	padding: 0;
+}
+
+.ilightbox-thumbnails.custom-class {
+	right: 300px;
+}
+
+.ilightbox-thumbnails.custom-class .ilightbox-thumbnails-grid .ilightbox-thumbnail img {
+	border: #111 2px solid;
+}
+
+html.win .ilightbox-noscroll, html.win .ilightbox-noscroll .navbar-wrapper {
+	padding-right: 17px;
+}
+
+html.linux .ilightbox-noscroll, html.linux .ilightbox-noscroll .navbar-wrapper {
+	padding-right: 13px;
+}
+
+
+.ilightbox-overlay.metro-black {
+	background: #000;
+}
+
+.ilightbox-loader.metro-black {
+	-webkit-box-shadow: rgba(0,0,0,1) 0px 0px 55px, rgba(0,0,0,.3) 0px 0px 55px;
+	        box-shadow: rgba(0,0,0,1) 0px 0px 55px, rgba(0,0,0,.3) 0px 0px 55px;
+}
+.ilightbox-loader.metro-black div {
+	background: #000 url('preloader.gif') no-repeat center;
+}
+
+.ilightbox-holder.metro-black {
+	padding: 3px;
+	background: #000;
+	
+	-webkit-box-shadow: 0 0 45px rgba(0,0,0,.8);
+	        box-shadow: 0 0 45px rgba(0,0,0,.8);
+}
+
+.ilightbox-holder.metro-black .ilightbox-container .ilightbox-caption {
+	background: url('caption-bg.png') repeat-x bottom;
+	background-size: 100% 100%;
+	left: 0;
+	right: 0;
+	color: #FFF;
+	text-shadow: 0 0 3px rgba(0, 0, 0, .75);
+	padding-top: 15px;
+}
+
+.ilightbox-holder.metro-black .ilightbox-container .ilightbox-social {
+	background: url('social-bg.png');
+	
+	-webkit-border-radius: 2px;
+	        border-radius: 2px;
+}
+
+.ilightbox-holder.metro-black .ilightbox-alert {
+	background: url('alert.png') no-repeat center top;
+	color: #555;
+}
+
+/* Style toolbar */
+.ilightbox-toolbar.metro-black {
+	top: 8px;
+	left: 8px;
+	height: 25px;
+}
+
+.ilightbox-toolbar.metro-black a {
+	width: 27px;
+	height: 25px;
+	background: #000 url('buttons.png') no-repeat 7px 6px;
+}
+
+.ilightbox-toolbar.metro-black a:hover {
+	background-color: #51b7ff;
+}
+
+.ilightbox-toolbar.metro-black a.ilightbox-close:hover {
+	background-color: #d94947;
+}
+
+.ilightbox-toolbar.metro-black a.disabled {
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+	cursor: default;
+	background-color: #000;
+	
+	-webkit-box-shadow: 0 0 25px rgba(0,0,0,.8);
+	        box-shadow: 0 0 25px rgba(0,0,0,.8);
+}
+
+.ilightbox-toolbar.metro-black a.ilightbox-fullscreen {
+	background-position: 6px -31px;
+}
+
+.ilightbox-toolbar.metro-black a.ilightbox-play {
+	background-position: 8px -55px;
+}
+
+.ilightbox-toolbar.metro-black a.ilightbox-pause {
+	background-position: 8px -81px;
+}
+
+.isMobile .ilightbox-toolbar.metro-black {
+	background: #000;
+	top: auto;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+}
+
+.isMobile .ilightbox-toolbar.metro-black a {
+	display: inline-block;
+	float: none;
+	width: 50px;
+	height: 40px;
+	background-size: 50%;
+	background-position: 50%;
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-fullscreen {
+	background-image: url('fullscreen-icon-64.png');
+	background-image/*\**/: url('fullscreen-icon-ie.png')\9;  /* IE7-8 */
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-close {
+	background-image: url('x-mark-icon-64.png');
+	background-image/*\**/: url('x-mark-icon-ie.png')\9;  /* IE7-8 */
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-next-button {
+	background-image: url('arrow-next-icon-64.png');
+	background-image/*\**/: url('arrow-next-icon-ie.png')\9;  /* IE7-8 */
+	background-position: 52% 50%;
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-prev-button {
+	background-image: url('arrow-prev-icon-64.png');
+	background-image/*\**/: url('arrow-prev-icon-ie.png')\9;  /* IE7-8 */
+	background-position: 48% 50%;
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-play {
+	background-image: url('play-icon-64.png');
+	background-image/*\**/: url('play-icon-ie.png')\9;  /* IE7-8 */
+}
+
+.isMobile .ilightbox-toolbar.metro-black a.ilightbox-pause {
+	background-image: url('pause-icon-64.png');
+	background-image/*\**/: url('pause-icon-ie.png')\9;  /* IE7-8 */
+}
+
+.ilightbox-holder.metro-black .ilightbox-inner-toolbar .ilightbox-title {
+	font-size: 18px;
+	padding: 10px 12px;
+	padding-right: 60px;
+	color: #acacad;
+}
+
+.ilightbox-holder.metro-black .ilightbox-inner-toolbar .ilightbox-toolbar {
+	left: auto;
+	top: 5px;
+	right: 5px;
+}
+
+.ilightbox-holder.metro-black .ilightbox-inner-toolbar .ilightbox-toolbar a {
+	float: right;
+}
+
+/* Style thumbnails */
+.ilightbox-thumbnails.metro-black.ilightbox-horizontal {
+	height: 104px;
+}
+
+.ilightbox-thumbnails.metro-black.ilightbox-horizontal .ilightbox-thumbnails-container {
+	height: 104px;
+}
+
+.ilightbox-thumbnails.metro-black.ilightbox-vertical {
+	width: 144px;
+}
+
+.ilightbox-thumbnails.metro-black.ilightbox-vertical .ilightbox-thumbnails-container {
+	width: 144px;
+}
+
+.ilightbox-thumbnails.metro-black .ilightbox-thumbnails-grid .ilightbox-thumbnail img {
+	border: 2px solid #000;
+	
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,.8);
+	        box-shadow: 0 0 10px rgba(0,0,0,.8);
+	
+	-webkit-border-radius: 0;
+	        border-radius: 0;
+}
+
+.ilightbox-thumbnails.metro-black .ilightbox-thumbnails-grid .ilightbox-thumbnail .ilightbox-thumbnail-video {
+	background: url('thumb-overlay-play.png') no-repeat center;
+}
+
+/* Configure arrow buttons */
+.ilightbox-button.metro-black.disabled {
+	opacity: 0.1;
+	filter: alpha(opacity=10);
+	cursor: default;
+}
+.ilightbox-button.metro-black span {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.ilightbox-button.ilightbox-next-button.metro-black,
+.ilightbox-button.ilightbox-prev-button.metro-black {
+	bottom: 0;
+	right: 0;
+	left: 0;
+	left/*\**/: 35%\9;  /* IE7-8 */
+	right/*\**/: auto\9;  /* IE7-8 */
+	width: 30%;
+	height: 100px;
+	margin: auto;
+	background: url('arrows_vertical.png') no-repeat 50% -100px;
+	background-color: #000;
+	background-color: rgba(0,0,0,0.5);
+}
+.ilightbox-button.ilightbox-prev-button.metro-black {
+	top: 0;
+	bottom: auto;
+	background-position: 50% 0;
+}
+.ilightbox-button.ilightbox-next-button.metro-black.horizontal,
+.ilightbox-button.ilightbox-prev-button.metro-black.horizontal {
+	right: 0;
+	left: auto;
+	top: 0;
+	bottom: 0;
+	top/*\**/: 36%\9;  /* IE7-8 */
+	bottom/*\**/: auto\9;  /* IE7-8 */
+	width: 100px;
+	height: 30%;
+	background-image: url('arrows_horizontal.png');
+	background-position: -93px 50%;
+}
+.ilightbox-button.ilightbox-prev-button.metro-black.horizontal {
+	right: auto;
+	left: 0;
+	background-position: -7px 50%;
+}

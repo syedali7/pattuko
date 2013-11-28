@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  brand: MyString
+  sku: MyString
+  folder_id: 1
+  image_url: MyText
+
+two:
+  brand: MyString
+  sku: MyString
+  folder_id: 1
+  image_url: MyText

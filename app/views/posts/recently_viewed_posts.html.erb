@@ -1,0 +1,13 @@
+<% if current_user %>
+    <% view = Watch.where(:user_id => current_user.id, :watchable_type => 'Post').map(&:watchable_id).uniq %>
+    <% view.reverse.first(6).each do |v| %>
+        <% post = Post.find(v) %>
+        <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>
+    <% end %>
+<% else %>
+    <% view = Watch.where(:cuid => session[:cuid], :watchable_type => 'Post').map(&:watchable_id).uniq %>
+    <% view.reverse.first(6).each do |v| %>
+        <% post = Post.find(v) %>
+        <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>
+    <% end %>
+<% end %>

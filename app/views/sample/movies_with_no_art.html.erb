@@ -1,0 +1,14 @@
+<table>
+	<th>MOVIE ID   </th>
+	<th>MOVIE NAME </th>
+	<th>Total Posts</th>
+        <th>Check For Duplicates</th>
+    <% @movies.each do |m| %>
+        <tr style="background-color:<%= cycle('#75A3FF;','#DDDDDD;')%>" >
+	   <td><%= m.id %> </td>
+           <td><%= m.name %></td>
+           <td><%= m.total_posts %></td>
+           <td><%= link_to "smilar types",duplicate_movies_admin_movie_url(:id=>m.id),:method=>'get' %></td>
+        </tr>
+    <% end %>
+</table>

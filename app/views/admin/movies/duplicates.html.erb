@@ -1,0 +1,32 @@
+<div>
+  <table>
+	<h2>Similar type of Movies for :</h2>
+	<th>Movie</th>
+	<th>Wood</th>
+	<th>Total Posts</th>
+	<tr style="background-color:#DDDDDD">
+		<td><%= @movie.name%></td>
+		<td><%= @movie.wood.wood %></td>
+		<td id='act<%= @movie.id %>'><%= @movie.total_posts %></td>
+	</tr>
+  </table>
+</div>
+<div>
+<table>
+	<h2>suggestions</h2>
+	<th>Movie</th>
+	<th>Wood</th>
+	<th>Total Posts</th>
+	<th>Swap And Delete</th>
+	<% @duplicate.each do|d| %>
+  	   <tr id='dup<%= d.id %>' class="dup" style="background-color:<%= cycle('#B2D1FF','#DDDDDD')%>;">
+			<td><%= link_to d.name,duplicate_movies_admin_movie_path(:id=>d.id) %></td>
+			<td><%= d.wood.wood %></td>
+			<td><%= d.total_posts %></td>
+			<td ><%= button_to "Swap Posts",duplicate_movie_delete_admin_movie_path(:id=>@movie.id,:dmovie_id=>d.id),:method=>"post",:remote=>true %></td>
+  	   </tr>	
+		<br/><br/>
+	<% end %>
+</table>
+<a onclick="history.back();">Back</a>
+</div>

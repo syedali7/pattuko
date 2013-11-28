@@ -1,0 +1,29 @@
+<div id="post_form">
+    <form accept-charset="UTF-8" action="/posts/998" data-remote="true" id="submit_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"></div>
+        <div id="check_select">
+            <p style="background-color:#DDDDDD;">Select The Post Type
+               <a href="javascript:void(0)" ;="" id="edit_close" style="float:right">close x  
+                </a>
+            </p>
+            <input id="post_posting_type_movie" name="post[posting_type]" type="radio" value="Movie">
+            <label for="post_posting_type_movie">Movie</label><br>
+            <input checked="checked" id="post_posting_type_artist" name="post[posting_type]" type="radio" value="Artist">
+            <label for="post_posting_type_artist">Artist</label><br>
+            <input id="post_posting_type_event" name="post[posting_type]" type="radio" value="Event">
+            <label for="post_posting_type_event">Event</label>
+        </div>
+        <div id="sub_edit_movie" style="display: none;">
+            <input type="hidden" class="bigdrop" id="movie_select_dropdown" style="width:600px;">
+        </div>
+        <div id="sub_edit_artist" style="">
+            <input type="hidden" class="bigdrop" id="artist_select_dropdown" style="width:600px;">
+        </div>
+        <div id="sub_edit_event" style="display: none;">
+            <input type="hidden" class="bigdrop" id="event_select_dropdown" style="width:600px;">
+        </div>
+        <input id="edit_movie_id" name="edit_movie_id" type="hidden">
+        <input id="edit_artist_id" name="edit_artist_id" type="hidden">
+        <input id="edit_event_id" name="edit_event_id" type="hidden">
+        <input name="commit" type="submit" value="Update Post">
+    </form>        
+</div>

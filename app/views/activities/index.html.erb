@@ -1,0 +1,104 @@
+<section id="content">
+    <div id="container" class="container transitions-enabled clearfix" style="margin: 0 auto;">
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+        <% unless current_user.nil? %>
+            <% @posts.each do |post| %>
+                <div class="box col2">
+                    <% if post.post_type == "News" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>' 
+                            style="height: <%= post.image_thumb_height %>px;"/> 
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                        <span class="movie-comments"><%= post.post_title %></span>
+                    <% elsif post.post_type == "Video" %>
+                        <p class="image-area various fancybox.iframe" 
+                            style="height: <%= post.image_thumb_height %>px;" >
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                :class => 'lazy',
+                                :style => "height:360px;", 
+                                :data => {"original" => post.post_image}),
+                                post_path(:id => post.post_id) %>
+                        </p>
+                    <% elsif post.post_type == "Album" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>'
+                            style="height: <%= post.image_thumb_height %>px;"/>
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                    <% elsif post.post_type == "Image" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>' 
+                            style="height: <%= post.image_thumb_height %>px;"/> 
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                        <span class="movie-comments"><%= post.post_title %></span>
+                    <% end %>
+                </div>
+            <% end %>
+        <% else %>
+            <% @posts.each do |post| %>
+                <div class="box col2">
+                    <% if post.post_type == "News" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>' 
+                            style="height: <%= post.image_thumb_height %>px;"/> 
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                        <span class="movie-comments"><%= post.post_title %></span>
+                    <% elsif post.post_type == "Video" %>
+                        <p class="image-area various fancybox.iframe" 
+                            style="height: <%= post.image_thumb_height %>px;">
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                :class => 'lazy',
+                                :style => "height:360px;", 
+                                :data => {"original" => post.post_image}),
+                                post_path(:id => post.post_id) %>
+                        </p>
+                    <% elsif post.post_type == "Album" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>'
+                            style="height: <%= post.image_thumb_height %>px;"/>
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                    <% elsif post.post_type == "Image" %>
+                        <p class="image-area fancybox" rel='group' title = '<%= post.post_title %>'
+                            href='<%= post.post_image %>' 
+                            style="height: <%= post.image_thumb_height %>px;"/> 
+                            <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+                                            :class => 'lazy',
+                                            :data => {"original" => post.post_image}),
+                                             post_path(:id => post.post_id)%>
+                        </p>
+                        <span class="movie-comments"><%= post.post_title %></span>
+                    <% end %>
+                </div>
+            <% end %>
+        <% end %>
+        <button id="ScrollToTop" class="Button WhiteButton Indicator" type="button">
+            Scroll to Top
+        </button>
+    </div>
+</section>
+<div class="pageless-navigation">
+    <a href="/activities?page=2" />
+</div>

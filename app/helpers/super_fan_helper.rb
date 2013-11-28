@@ -1,0 +1,2 @@
+module SuperFanHelper
+end

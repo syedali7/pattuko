@@ -1,0 +1,23 @@
+<%= form_for Image.new,  :html => { :id => "test_news_image_upload" } do |i| %>
+    <%= i.file_field  :image  %>
+<% end %>
+<div  style="float:left; clear">
+<div style="text-align:center">
+	<input type="text" id="title_edit" class ="cmn_inpt" value="<%= @post.title %>"></input>
+	<input type="text" id="image_url" placeholder="Paste image url" class ="cmn_inpt"></input>
+</div>   
+<div id="post_image_update" style="float:right;"></div>
+<% if @post.postable_type == "News" %>
+	<br><br>
+	<div style="text-align:center">
+		<input type="text" id="news_edit" class = "cmn_txtarea_edit" value="<%= @news.content %>">
+		</input>
+	</div>
+<% end %>
+<button class="sub_btn clear" id="post_edit_submit" data-id="<%= @post.id %>" 
+	data-show-path="<%= @post.es_show_path %>">
+	Done!
+</button>
+
+
+<%= render :partial => 'news/description' %>

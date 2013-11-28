@@ -1,0 +1,64 @@
+<div class="shop_cont">
+    <h1 class="secondary_header float_L w100">
+    	Accessories of <%= @style.artist.name %> 
+    	<span class="float_R">
+    		<% if current_user.nil? %>
+	    		<a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank" class="shop_fb float_L"></a>
+	    		<a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank" class="shop_twit float_L"></a>
+	    		<a href="<%=user_omniauth_authorize_path(:facebook)%>" target="_blank" class="shop_clap float_L"></a>
+	    	<% else %>
+	    		<a href="#" 
+                  onclick="
+                    window.open(
+                      'https://www.facebook.com/sharer/sharer.php?u='+'www.pattuko.com/shop/<%= @style.id %>', 
+                      'facebook-share-dialog', 
+                      'width=626,height=436'); 
+                    return false;" class="shop_fb float_L">
+                </a>
+                <a href="https://twitter.com/share" class="shop_twit float_L" data-via="itzmeMurali"></a>
+	    		<% unless !@style.clapped_user_ids.nil? && @style.clapped_user_ids.include?(current_user.id) %>
+	    			<a href="javascript:void(0);" id="style-clap" data-id="<%= @style.id%>" 
+	    				class="shop_clap float_L"></a>
+	    		<% end %>
+	    	<% end %>
+    	</span>
+    </h1>
+    <div class="shop_cont_lft float_L">
+    	<figure>
+    		<%= image_tag(asset_path("lazy_img_load.gif"),
+	    	:class => 'lazy',
+	    	:style => "width:250px; height: #{@style.thumb_height}px;",
+	    	:data => {"original" => @style.image.url(:thumb).to_s}) %>
+    	</figure>
+	    <ul>
+	    	<li><a href="#">View all Accessories</a></li>
+	        <li><a href="#">Products</a></li>
+	        <li><a href="#">Blog</a></li>
+	    </ul>
+    </div>
+    <div class="shop_cont_rgt float_L">
+    	<ul>
+    		<% @style.products.each do |p| %>
+    			<% if p.store == 'Myntra' || p.store == 'Fashionara' || p.store == 'Flipkart' %>
+				    <li class="animation_class">
+				    	<figure>
+				        	<%= link_to image_tag(asset_path("lazy_img_load.gif"),
+					    	:class => 'lazy',
+					    	:style => 'width:148px; height:198px;',
+					    	:data => {"original" => p.image.url(:thumb).to_s}), 
+					    		outlinks_path(:dest_url => p.product_url) %>
+				        </figure>
+				        <p><strong class="brnd_name"><%= p.title %></strong><br/>
+				         Seller : <a class="prod_site" href=""><%= p.store %></a></p>
+				        <p>
+				        	<span class="rupee float_L">&#8377; <%= p.price %></span>
+				        	<a href="<%= outlinks_path(:dest_url => p.product_url) %>">
+				        		<input class="float_R cmn_btn" type="button" value="Buy">
+				        	</a>
+				        </p>
+				    </li>
+				<% end %>
+			<% end %>
+    	</ul>
+   	</div>
+</div>

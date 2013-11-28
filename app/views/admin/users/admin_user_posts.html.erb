@@ -1,0 +1,30 @@
+Today number of Posts by admin
+
+<%# @posts.each do |u| %>
+	<%# user = User.find(u.user_id) %>
+	<%# if u.role == "admin" %>
+		<%#= u.username %>
+	<%# end %>
+<%# end %>
+
+ <%= @posts.count %>
+
+
+ <% sd = Date.parse('2013-09-01') %>
+
+ <% ed = Date.today %>
+
+ <% date_array = [] %>
+
+ <% date_array << (sd..ed).to_a %>
+
+<% @posts_d.each do |pd| %>
+   <% temp = pd.created_at.to_date %>
+	<% date_array.each do |d| %>
+
+	 	<% post = Post.where(:user_id => 11, :created_at => temp) %>
+	 	<%= d %>
+	 	<%= post.count %>
+
+	<% end %>
+<% end %>

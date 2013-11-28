@@ -1,0 +1,4 @@
+<% @related_posts.each do |rp| %>
+	<% post = Post.find(rp.related_post_id) %>
+	<%= render :partial => 'posts/post', :locals => {:post => post} %>
+<% end %>

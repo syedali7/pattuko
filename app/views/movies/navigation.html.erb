@@ -1,0 +1,43 @@
+<nav class="navigation">
+<% if @type == "Movie" %>
+    <ul class="choice_bc_movie">
+<% elsif @type == "Artist" %>
+    <ul class="choice_bc_artist">
+<% elsif @type == "Event" %>
+    <ul class="choice_bc_event">
+<% end %>
+        <li>
+            <a href="javascript:void(0)">
+                <span class="center"><b class="home_btn"></b></span>
+                <span class="shape-R"></span>
+            </a>
+        </li>
+        <li>
+            <% if @type == "Movie" %>
+                <a href="javascript:void(0)" class="bc_movie" data-value="create-movie">
+            <% elsif @type == "Artist" %>
+                <a href="javascript:void(0)" class="bc_artist" data-value="create-artist">
+            <% elsif @type == "Event" %>
+                <a href="javascript:void(0)" class="bc_event" data-value="create-event">
+            <% end %>
+                <span class="shape-L"></span>
+                <span class="center"><%= @type %></span>
+                <span class="shape-R"></span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <span class="shape-L"></span>
+                <span class="center"><%= @type_name %></span>
+                <span class="shape-R"></span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="javascript:void(0)">
+                <span class="shape-L"></span>
+                <span class="center"><%= @p_type %></span>
+                <span class="shape-R"></span>
+            </a>
+        </li>
+    </ul>
+</nav>

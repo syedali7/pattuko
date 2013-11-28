@@ -1,0 +1,105 @@
+<div class="show_post_popup" style="display:none; top:0px; position:fixed; width:100%; z-index:1000; height: 100%;">
+</div>
+
+<div id="create" style="display:none;">
+
+</div>
+
+<button id="ScrollToTop" class="Button WhiteButton Indicator" type="button">
+    Scroll to Top
+</button>
+
+
+<% if false %>
+  <div style="border: 1px solid #FFF; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0; -moz-box-shadow: inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;
+  -webkit-box-shadow: inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;
+  box-shadow: inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;
+  font: normal normal bold 14px/1em Arial, sans-serif;
+  position: fixed;
+  left: 150px;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #365d98; font-size: 14px; padding: 7px;">
+
+  <!-- <a href="/about" style="color: #fff;">About us</a> -->
+  <%= link_to 'About us' , "/about" , :style => "color: #fff;" %>
+
+  </div>
+<% end %>
+
+<div id="notify-container" style="display:none; z-index: 1000;">
+    <div id="basic-template">
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+        <h1>#{title}</h1>
+        <p>#{text}</p>
+    </div>
+</div>
+
+<div style="display:none;">
+    <%=link_to 'feedback', 'javascript:void(0);', 
+    :class => "feedback-fancybox" %>
+</div>
+
+<div class="feedback-fancybox" style="display:none;" id="popup-pageload-movies">
+    <h2 align="center">Feedback</h2>
+
+    <%= form_tag  feedback_activities_path , :id => 'validate_image', 
+             :multipart => true do %>
+        
+                <label class="post_fb">
+                    <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   not Satisfied
+                </label>
+                <label class="post_fb">
+                    <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   OK
+                </label>
+                <label class="post_fb">
+                    <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   Good
+                </label>
+                <label class="post_fb">
+                    <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   Need to improve
+                </label>
+                <%= submit_tag 'submit' , :class => "sub_btn" %>
+        
+    <% end %>
+
+</div>
+
+<!-- footer starts 
+<footer class="foot">
+<div class="foot_wraper">
+<div class="foot_inner">
+<p class="copy_right float_L">&copy; 2013 Pattuko All Rights Reserved</p>
+<!--<div class="loading_post"><img src="assets/loader_with_bg.gif">Loding Posts...</div>
+<nav>
+    <ul class="foot_menu">
+    <li><a href="/pages/about">About US</a></li>
+    <li><a href="">Contact Us</a></li>
+</ul>
+</nav>
+</div>
+<!--<a  id='ScrollToTop' class="animation_class" href="" ></a>
+</div>
+</footer>
+<!-- footer ends   -->
+
+<% if false %>
+  <!-- UserVoice JavaScript SDK (only needed once on a page) -->
+  <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/llf4JUSw9RmnCXyBBuktQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
+
+  <!-- A tab to launch the Classic Widget -->
+  <script>
+  UserVoice = window.UserVoice || [];
+  UserVoice.push(['showTab', 'classic_widget', {
+    mode: 'full',
+    primary_color: '#cc6d00',
+    link_color: '#007dbf',
+    default_mode: 'support',
+    forum_id: 219828,
+    tab_label: 'Feedback',
+    tab_color: '#365d98',
+    tab_position: 'bottom-left',
+    tab_inverted: false
+  }]);
+  </script>
+<% end %>

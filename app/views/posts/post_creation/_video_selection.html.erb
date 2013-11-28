@@ -1,0 +1,31 @@
+<div id="video-panel" class="video_selection">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div id="navigation_video"></div>
+            <p class="desc_text">Tell the fans world about this video</p>
+            <%= form_tag  video_create_posts_path , :id => 'validate_video', 
+                     :multipart => true do %>
+                <div class="float_L">
+                    <%= hidden_field_tag 'movie_id' %>
+                    <%= hidden_field_tag 'artist_id' %>
+                    <%= hidden_field_tag 'mention_movie_id' %>
+                    <%= hidden_field_tag 'mention_artist_id' %>
+                    <%= hidden_field_tag 'user_id' %>
+                    <%= hidden_field_tag 'posting_type' %>
+                    
+                    <%#= select_tag "video_type", "<option>Teaser</option><option selected='selected'>Trailer</option><option>Song</option>".html_safe %>
+
+                    <%= text_field_tag :title,nil, :class=> "cmn_inpt",
+                        :placeholder => "Title" %>
+                    <%= text_field_tag :youtube_url,nil, :class=> "cmn_inpt",
+                        :placeholder => "youtube URL" %>
+                    <label class="post_fb">
+                        <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   Post to facebook
+                    </label>
+                    <%= submit_tag 'submit' , :class => "sub_btn mention_submit" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<h2>related posts (activities)</h2>
+
+	<% @related_posts.each do |post| %>
+		<div class='box col2'>
+			<% if post.postable_type == "News" %>
+                <%= render :partial => 'news/news', :locals => {:post => post} %>
+            <% elsif post.postable_type == "Video" %>
+                <%= render :partial => 'videos/video', :locals => {:post => post} %>
+            <% elsif post.postable_type == "Album" %
+                <%= render :partial => 'albums/album', :locals => {:post => post} %>
+            <% elsif post.postable_type == "Image" %>
+                <%= render :partial => 'images/image', :locals => {:post => post} %>
+            <% elsif post.postable_type == "Review" %>
+                <%= render :partial => 'reviews/review', :locals => {:post => post} %>
+            <% end %>
+		</div>
+	<% end %>

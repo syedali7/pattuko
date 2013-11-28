@@ -1,0 +1,12 @@
+<div class="artist_container" style="overflow: auto;">
+	<%= render :partial => "artists/show/show_page_menu", :locals => {:artist => @artist} %>
+    <div class="float_L w100 left_side_bar">
+        <%= render :partial => "artists/show/left_side_bar", :locals => {:artist => @artist} %>
+		<div id="posts_container" class="artists_posts_container" style="height: 400px; overflow: auto; " 
+			data-isFitWidth=false data-fixed-height=true container=true
+			data-es-query='{"bool":{"must":[{"term":{"posting_id":"<%= @artist.id %>"}},{"term":{"posting_type":"Artist"}}]}}'>
+			
+		</div>
+    </div>
+</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

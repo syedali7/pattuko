@@ -1,0 +1,5 @@
+<% @images.each do |i| %>
+    <%= image_tag i.image %>
+<% end %>
+
+<%= link_to 'New Image', [:new, @post, :image] %>

@@ -1,0 +1,87 @@
+<div class="people_involved related_movie float_L">
+    <h2 class="secondary_header">
+        People who clapped this post
+        <% if current_user %>
+            <% unless @post.claps.collect(&:user_id).include?(current_user.id) %>
+                <a href="javascript:void(0);" id="clap-<%= @post.id %>" class="float_R"> 
+                    clap
+                </a>
+                <div id="clap-<%= @post.id %>"></div>
+            <% end %>
+        <% else %>
+            <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="float_R">clap this post</a>
+        <% end %>
+    </h2>
+
+    <!-- clapped users start-->
+    <% clap_users = Clap.where(:clap_id => @post.id) %>
+    <% if clap_users.nil? || clap_users.blank? %>
+        <% if current_user %>
+            <a href="javascript:void(0);" id="clap-<%= @post.id %>"> 
+                Be the first one who clap this post
+            </a>
+
+            <div id="clap-<%= @post.id %>"></div>
+        <% else %>
+            <a href="<%= user_omniauth_authorize_path(:facebook) %>">Be the first one who clap this post</a>
+        <% end %>
+    <% else %> 
+        <div>
+            <% clap_users.last(3).each do|clap| %>
+                <div>
+                    <% user = clap.user_id %>
+                    <a href="<%= user_path(User.find(user))%>">
+                        <img src = "<%= User.find(user).image_url %>" 
+                        style="height:35px;width:35px;float:left;margin-right:10px;"/>
+                    </a>
+                </div>    
+            <% end %>
+        </div>
+    <% end %> 
+</div>  
+
+<!-- clapped users end -->
+
+<!-- admin edit post -->
+<% if session[:admin] %>
+    <div id="post_edit" >
+        <br/><br/>
+        <button style="background-color:#75A3FF;">Edit Post</button>
+    </div>
+<% end %>
+
+<div id="edit_post" style="display:none;">
+
+    <% if session[:admin] %>
+
+        <div id="post_form">
+            <%= form_for :post,:url=>post_path(:id=>@post.id),:html=>{:method=>:put,:remote=>true,:id=>'submit_form'} do |f|%>
+                <div id="check_select">
+                    <p style="background-color:#DDDDDD;">Select The Post Type
+                       <a href='javascript:void(0)'; id='edit_close' style='float:right'>close x  
+                        </a>
+                    </p>
+                    <%= f.radio_button(:posting_type, "Movie") %>
+                    <%= f.label(:posting_type_movie, "Movie") %><br/>
+                    <%= f.radio_button(:posting_type, "Artist") %>
+                    <%= f.label(:posting_type_artist, "Artist") %><br/>
+                    <%= f.radio_button(:posting_type, "Event") %>
+                    <%= f.label(:posting_type_event, "Event") %>
+                </div>
+            <div id="sub_edit_movie" style="display:none;">
+                <input type="hidden" class="bigdrop" id="movie_select_dropdown" style="width:600px;" />
+            </div>
+            <div id="sub_edit_artist" style="display:none;">
+                <input type="hidden" class="bigdrop" id="artist_select_dropdown" style="width:600px;" />
+            </div>
+            <div id="sub_edit_event" style="display:none;">
+                <input type="hidden" class="bigdrop" id="event_select_dropdown" style="width:600px;" />
+            </div>
+            <%= hidden_field_tag "edit_movie_id" %>
+            <%= hidden_field_tag "edit_artist_id" %>
+            <%= hidden_field_tag "edit_event_id" %>
+            <%= f.submit("Update Post") %>
+          <% end %>
+        </div> 
+    <% end %>
+</div>

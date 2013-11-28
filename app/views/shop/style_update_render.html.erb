@@ -1,0 +1,27 @@
+<% if session[:admin] %>
+	<div style="height:300px;width:600px;">
+		<% style_id = @style_id %>
+
+		<div id="sub_edit_movie_style_<%= style_id %>" >
+		    <input  class="bigdrop" 
+		    id="movie_select_dropdown_style" style="width:600px;" />
+		</div>
+		<div id="sub_edit_artist_style_<%= style_id %>" >
+		    <input class="bigdrop" id="artist_select_dropdown_style" style="width:600px;"  />
+		</div>
+		<div id="style_form_<%= style_id %>" >
+		    <%= form_tag  style_update_shop_index_path do %>
+		        <%= hidden_field_tag 'style_id', @style_id %>
+		        <%= hidden_field_tag 'style_movie_id' %>
+		        <%= hidden_field_tag 'style_artist_id' %>
+		    <%#= submit_tag 'finish' , :class => "sub_btn" %>
+		    <% end %>
+
+		    <input type="submit" value="Done" class="finish sub_btn"/>
+		</div>
+
+		<input type="hidden" name="style_movie_id" id="style_movie_id_parsed"/>
+		<input type="hidden" name="style_artist_id" id="style_artist_id_parsed"/>
+		<input type="hidden" name="style_id" id="style_id_parsed" value="<%= style_id %>"/>
+	</div>
+<% end %>

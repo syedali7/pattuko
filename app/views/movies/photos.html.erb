@@ -1,0 +1,25 @@
+
+<% unless @posts.nil?%>
+	<section id="content">
+    	<div id="container" class="container transitions-enabled clearfix" style="margin: 0 auto;">
+			<%@posts.each do |post| %>
+				<%if post.postable_type == "Image" %>
+					<div class="box col2 ">
+		    			<div class="hoverDiv" data-post-id="<%= post.id %>">
+							<% image = Image.find(post.postable_id) %>
+							<p class="image-area" 
+								rel='group' title = '<%= post.title %>'
+								id="post-<%= post.id %>">
+							    <%= link_to image_tag(image.image.url(:thumb).to_s), post_path(post) %>
+							</p>
+							<%= render :partial => 'posts/post_description', :locals => {:post => post} %>
+						</div>
+					</div>   
+				<% end %>	
+			<% end %>
+		</div>
+	</section>
+<% else %>
+	<h2>no posts</h2>	
+<% end %>		
+		

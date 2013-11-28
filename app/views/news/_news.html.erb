@@ -1,0 +1,10 @@
+<% news = News.find(post.postable_id) %>
+<% image = Image.find(news.image_id) %>
+<p class="image-area" id="post-<%= post.id %>"
+	rel='group' title = '<%= post.title %>'
+	style="height: <%= image.thumb_height %>px;">
+    <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+    	:class => 'lazy',
+    	:data => {"original" => image.image.url(:thumb).to_s}), post_path(post) %>
+</p>
+

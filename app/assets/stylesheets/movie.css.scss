@@ -1,0 +1,55 @@
+.new_mov_cont								{ background:#f1f1f1; height:auto; float:left; margin-top:10px;}
+.mov_left_section							{ width:300px; border-right:1px solid #cdb8b8; background:#d5e1e7; overflow:hidden; overflow-y:scroll; height:auto;}
+.well_known									{ width:100%; position:relative;}
+.well_known span							{ text-align:center; font-size:24px; color:#000; font-family: 'segoeuil', sans-serif; text-shadow:0px 1px 0px #fff; line-height:20px; margin-top:20px; margin-bottom:20px;}
+.well_known span b							{ font-size:13px; color:#000; display:block; width:100%; font-weight:bold}
+.mr30										{ margin:0 30px 0 0;}
+.well_known_img								{ position:absolute; width:86px; height:86px; border-radius:50%; border:2px solid #fff; box-shadow:0px 2px 2px #959da1; left: 50%;margin-left: -43px;top: -35px;}
+.mov_title									{ width:100%; text-align:center; font-size:30px; color:#000; font-family: 'segoeuil', sans-serif; text-shadow:0px 1px 0px #f4f4f4;}
+.mov_left_section .mov_desc					{ font-size:13px; color:#000; width:280px; margin-left:10px; text-align:justify}
+.artist_item								{ width:149px; border-left:1px solid #e9d9d9; height:auto; font-size:13px; position:relative; z-index:0; transition:all ease-in 0.5s; -moz-transition:all ease-in 0.5s; -webkit-transition:all ease-in 0.5s; -o-transition:all ease-in 0.5s; }
+.artist_item:hover							{ box-shadow: 0px 0px 10px #9B6666; background:#FAF7F7; z-index:1; cursor:default;}
+.artist_item_img							{ width:149px; height:200px;}
+.sample_label								{ margin:0 0 10px 5px; display:block}
+.artist_item h2	a							{ font-size:20px; margin-left:5px; color:#8b8b8b; margin-bottom:10px; text-shadow: 0px 1px 0px #FFF;}
+.famous_for									{ margin:0 0 10px 5px; padding:0; list-style:none;}
+.famous_for li								{ margin:0; padding:0; float:left; display:inline-block; width:100%}
+.famous_for li a							{ color:#4b97fe; font-size:13px; line-height:20px; font-family: 'segoeui', sans-serif;}
+.famous_for li a:hover						{ color:#0E73FC;}
+.top_fans_list								{ margin:0 0 0 5px; padding:0; width:90%}
+.top_fans_list li							{ margin:0 8px 10px 0; padding:0; float:left; display:inline-block;}
+.top_fans_list li img						{ width:25px; height:25px; float:left; border-radius:50%;}
+.artist_bottom								{ width:100%; padding:5px 0; background:#d5e1e7; position:absolute; bottom:0}
+.artist_bottom span							{ font-size:24px; color:#000;font-family: 'segoeuil', sans-serif; text-align:left; text-shadow:0px 1px 0px #f4f4f4; margin-left:5px;}
+.artist_bottom span b						{ display:block; font-size:12px; font-weight:bold; }
+.artist_bottom span:nth-child(2)			{ text-align:right; margin-right:5px;}
+.star_icon									{ width:22px; height:24px; background:image-url('star_icon.png') 0 0 no-repeat; position:absolute; top:167px; left:10px;}
+
+.overwrite_class							{ box-shadow:none; margin-top:10px}
+.overwrite_class .add_area_inpt 			{ border: 1px solid #DBC4C4;}
+.overwrite_class .add_media a				{ color:#968080;}
+.overwrite_class .add_media a:hover			{ color:#000;}
+.overwrite_class .desc_item li span			{ color:#968080;}
+.overwrite_class .desc_item li				{ border-bottom: 1px solid #C5CDD6;}
+.overwrite_class .desc_item li:hover 		{ background: #E2E2E2;}
+.overwrite_class .more_link 				{ color: #41abfd;}
+.overwrite_class .desc_item li:hover span 	{color: #3F3F3F;}
+
+@font-face {
+	font-family: segoeui;
+	src: url("fonts/segoeui.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: segoeuib;
+	src: url("fonts/segoeuib.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: segoeuil;
+	src: url("fonts/segoeuil.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}

@@ -1,0 +1,24 @@
+<ul>
+    <% @comments.last(3).each do |comment| %>
+        <li>
+            <span class="photo">
+                <a href="/user/<%= comment.user.id %>/user_posts">
+                <%= image_tag(comment.user.image_url)%>
+                </a>
+            </span>
+            <label>
+                <a href="/user/<%= comment.user.id %>/user_posts">
+                    <strong><%= comment.user.username %> :</strong>
+                </a>
+                    <%= comment.body %>
+            </label>
+        </li>
+    <% end %>
+</ul>
+<% if @comments.count > 3 %>
+    <div class="comment-list">  
+        <a href="javascript:void(0)">
+            <%= link_to 'View All comments', image_path(:id => @image.id ), :class => "all-comnt" %>
+        </a>
+    </div>
+<% end %>

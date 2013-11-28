@@ -1,0 +1,27 @@
+<% if session[:admin]%>
+	<% @albumurls.each do|n| %>	
+	<table id = "table-<%= n.id %>">
+	<tr style=<%= cycle("background-color:#d0e4fe;","background-color:#e4e4e4;") %> >
+		<td style ="width:500px;" id ="album_scrap_url-<%= n.id %>">	
+			<a href="<%= n.album_urls %>" target = "_blanck"><%= n.album_urls %></a>
+		</td>
+		<td style ="width:200px;">
+			<input type="hidden" class = "bigdrop" id = "movie_select_dropdown-<%= n.id %>" style="width: 200px;" >
+		</td>
+		<td style ="width:200px;padding-left:10px">
+			<input type="hidden" class = "bigdrop" id = "artist_select_dropdown-<%= n.id %>" style="width: 200px;" >
+		</td>
+		<td>
+			<button id = "album_scrap_url_submit1-<%=n.id%>" >Post</button>
+		</td>
+		<td style="padding-left:20px;">
+			<button> <a id = "delete-<%= n.id %>"href="javascript:void(0);">Delete</a></button>
+			<%#= link_to 'delete', newsurl_path(:id => n.id),:confirm => 'Are you sure?', :method => :delete %>
+
+		</td>		
+	</tr>
+	<br/>
+	</table>
+	<% end %>
+<% end %>
+<%= paginate @albumurls %>

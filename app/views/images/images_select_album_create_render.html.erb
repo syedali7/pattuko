@@ -1,0 +1,41 @@
+<% @images_ids.each do |image_id| %>
+	<% image = Image.find(image_id) %>
+	<img src="<%= image.image.url(:thumb) %>" style='height:100px; width:100px;'/>
+<% end %><br><br>
+<div  style="clear">
+<%= form_tag  images_select_album_create_images_path do %>
+	<%= text_field_tag :title, nil, :class=> "cmn_inpt", :id=> "news_title" ,
+                            :placeholder => "Title" %><br><br><br><br>
+    <%= text_field_tag :album_name,nil, :class=> "cmn_inpt",
+                        :placeholder => "Album name" %>
+	<%= hidden_field_tag 'images_ids', @images_ids %><br><br><br><br>
+		<div align="center">
+			<div id="sub_edit_movie">
+			    <input  class="bigdrop" id="movie_select_dropdown" style="width:600px;" />
+			</div>
+			<div id="sub_edit_artist">
+			    <input class="bigdrop" id="artist_select_dropdown" style="width:600px;" />
+			</div>
+			<div id="sub_edit_event">
+			    <input class="bigdrop" id="event_select_dropdown" style="width:600px;" />
+			</div>
+		</div>
+
+
+	    <div align="center">
+	        <input  class="bigdrop" id="mention_movie_select_dropdown" style="width:600px;" />
+	        <input  class="bigdrop" id="mention_artist_select_dropdown" style="width:600px;" />
+	    </div>
+
+		<%= hidden_field_tag "edit_movie_id" %>
+		<%= hidden_field_tag "edit_artist_id" %>
+		<%= hidden_field_tag "edit_event_id" %>
+		<%= hidden_field_tag "mention_artist_id" %>
+		<%= hidden_field_tag "mention_movie_id" %>
+	</div>
+
+
+	<div align="center">
+		<%= submit_tag 'submit' , :class => "sub_btn mention_submit" , :style => "float:left;"%>
+	</div>
+<% end %>

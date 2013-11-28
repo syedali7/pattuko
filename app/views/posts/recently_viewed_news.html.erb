@@ -1,0 +1,19 @@
+<% if current_user %>
+    <% view = Watch.where(:user_id => current_user.id, :watchable_type => 'Post').map(&:watchable_id).uniq %>
+    <% count = 0 %>
+    <% view.reverse.each do |v| %>
+        <% post = Post.find(v) %>
+        <% if post.postable_type == "News" %>
+            <% unless count == 6 %>
+                <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>
+                <% count = count + 1 %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% else %>
+    <% view = Watch.where(:cuid => session[:cuid], :watchable_type => 'Post').map(&:watchable_id).uniq %>
+    <% view.reverse.first(6).each do |v| %>
+        <% post = Post.find(v) %>
+        <li><a href="<%= post_path(post) %>"><%= post.title %></a></li>
+    <% end %>
+<% end %>

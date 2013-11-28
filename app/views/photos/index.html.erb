@@ -1,0 +1,8 @@
+<section id="content">
+    <ul id="photos_container" class="movie_items" style="margin: 0px auto;"
+        data-es-query='{ "bool" : { "must" : [{"wildcard" :{"name" : "*"} }]} }'
+        data-es-sort-query='[{"image_url_medium" : "desc" }]'
+        data-column-width=1>
+        
+    </ul>
+</section>

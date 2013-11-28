@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cinenukkad</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= csrf_meta_tags %>
+  <body class="demos">
+  	  <% unless flash['notice'].nil? %>
+  	     <script type='text/javascript'>alert('<%= flash['notice'] %>')</script>
+  	  <% end %>
+      <%= yield %>
+
+      <%= javascript_include_tag "application" %>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<% review = Review.find(post.postable_id) %>
+<% movie = Movie.find(post.posting_id) %>
+<p class="image-area fancybox-show fancybox.ajax"
+	rel='group' title = '<%= post.title %>'
+	href='<%= post_path(:id => post.id) %>' 
+	title = '<%= post.title %>'
+	style="height: <%= movie.thumb_height %>px;">
+    <%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+    	:class => 'lazy',
+    	:data => {"original" => movie.movie_image.url(:thumb).to_s}), post_path(:id => post.id)%>
+</p>

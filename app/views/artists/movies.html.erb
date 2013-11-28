@@ -1,0 +1,11 @@
+<div class="artist_container" style="overflow: auto;" data-artist-id="<%= @artist.id %>">
+    <div class="float_L w100 left_side_bar">
+        <%= render :partial => "artists/show/left_side_bar", :locals => {:artist => @artist} %>
+		<ul id="movies_container" class="artists_posts_container" style="height: 400px; overflow: auto; " 
+			data-isFitWidth=false data-fixed-height=true container=true
+			data-es-query='{ "bool" : { "must" : [{"term" :{"artists.id" : "<%= @artist.id %>"} }]} }'
+	    	data-es-sort-query='[{"image_url_medium" : "desc" }]'
+	    	data-column-width=1>
+		</div>
+    </div>
+</div>

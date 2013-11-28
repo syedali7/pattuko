@@ -1,0 +1,22 @@
+<p class="float_L">
+    <% if @post.posting_type == "Movie" %>
+    	<% movie = Movie.find(@post.posting_id) %>
+        <a href="<%= movie_path(movie)%>"><strong><%= movie.name %></strong></a><br/>
+        <%= pluralize( movie.fans.count, 'Fan') %>
+    <% elsif @post.posting_type == "Artist" %>
+    	<% artist = Artist.find(@post.posting_id) %>
+        <a href="<%= artist_path(movie)%>"><strong><%= artist.name %></strong></a><br/>
+        <%= pluralize( artist.fans.count, 'Fan') %>
+    <% elsif @post.posting_type == "Event" %>
+    	<% event = Event.find(@post.posting_id) %>
+    	<% if event.eventable_type == "Movie" %>
+	    	<% movie = Movie.find(event.eventing_id) %>
+	        <strong><%= movie.name %></strong><br/>
+	        <%= pluralize( movie.fans.count, 'Fan') %>
+    	<% elsif event.eventable_type == "Artist" %>
+    		<% artist = Artist.find(event.eventing_id) %>
+	        <strong><%= artist.name %></strong><br/>
+	        <%= pluralize( artist.fans.count, 'Fan') %>
+    	<% end %>
+    <% end %>
+</p>

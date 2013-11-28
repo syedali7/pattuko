@@ -1,0 +1,67 @@
+<div id="album-panel" class="album_selection">
+    <div class="createpop_outer">
+        <a class="close_popup" href="javascript:void(0);"></a>
+        <div class="create_wrapper">
+            <div id="navigation_album"></div>
+            <p class="desc_text">Tell the fans world about this album</p>
+            <div class="float_L ml30">
+                <div class="image-preview">
+                    <div class="image_upld">
+                        <%= image_tag(asset_path("default_image.png")) %>
+                    </div>
+                </div> 
+                <%= form_for Image.new,  :html => { :id => "album_image_upload" } do |i| %>
+                    <%= i.file_field  :image, multiple: true, name: "image[image]" %>
+                <% end %>   
+            </div>
+            <%= form_tag  'javascript:void(0);' , :id => 'validate_album', 
+                     :multipart => true do %>
+                <div class="float_L">
+                    <%= hidden_field_tag 'movie_id'  %>
+                    <%= hidden_field_tag 'artist_id' %> 
+                    <%= hidden_field_tag 'mention_movie_id' %>
+                    <%= hidden_field_tag 'mention_artist_id' %>
+                    <%= hidden_field_tag 'album_image_id[]', :multiple => true %>
+                    <%= hidden_field_tag 'cover_image_id'  %>
+                    <%= hidden_field_tag 'user_id' %>
+                    <%= hidden_field_tag 'posting_type' %>
+                    <%= text_field_tag :title,nil, :class=> "cmn_inpt",
+                        :placeholder => "Title" %>
+                    <%= text_field_tag :album_name,nil, :class=> "cmn_inpt",
+                        :placeholder => "Album name" %>
+                    <label class="post_fb">
+                        <%= check_box_tag :post_to_facebook, nil, :class => "post_fb"  %>   Post to facebook
+                    </label>
+                    <%= submit_tag 'submit' , :class => "sub_btn", :id => 'alb_sbt' %>
+                </div>
+            <% end %>
+
+
+             <% if session[:admin] %>
+                <div  style="float:left; clear">
+                    <div id="album_wait_process" style="display:none;">
+                        Please wait... scrapping under process.. Do not refresh the page
+                    </div>
+                    <div style="display: table-cell;">
+                        <input type="text" id="album_scrap_url" class="cmn_inpt" 
+                        placeholder="scrap url"/>
+                        <input type="text" id="album_date" class="cmn_inpt" 
+                        placeholder="Date"/>
+                        
+                        <button class="sub_btn clear" id="album_scrap_url_submit">submit</button>
+                    </div>
+
+                </div>
+
+            <% end %>
+
+            <div class="clearfix"></div>
+            
+            <div class="album_append_upload clear" id="cover_image_selection">
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+

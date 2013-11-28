@@ -1,0 +1,19 @@
+<div class='user_id' style='display:none'>
+    <% unless current_user.nil? %>
+        <%= current_user.id %>
+    <% end %>    
+</div>
+<% album = Album.find(@post.postable_id) %>
+
+
+<div class="container marketing">
+    <div class="featurette1">
+        <ul class="thumbnails" id="images">
+            <li class="span4 isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
+                <a href="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/9991/thumb__Andala_Rakshasi_in_Baahubali__.jpg" data-id="235322" class="thumbnail" data-options="thumbnail: 'http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/9991/thumb__Andala_Rakshasi_in_Baahubali__.jpg'">
+                    <img src="http://d2tgu4jwper4r3.cloudfront.net/uploads/posts/image/9991/thumb__Andala_Rakshasi_in_Baahubali__.jpg">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+ <div class="filter_container" data-no-turbolink> 
+    <div class="filter_icon">Filter By</div>
+     <span> <% unless session[:admin].nil?%>
+        <% id = current_user.id %>
+        <a id = "news-<%= id %>" class="filter_icon" href="/newsurls/">newscreate</a>
+      <%end %></span>
+    
+    <nav>
+        <ul class="filter_inner" style='display:block'>
+            <li class='movie_facets'><a href="#">Movie</a>
+              <ul style='display:block'>
+              </ul>
+            </li>
+            <li class='artist_facets'><a href="#">Artist</a>
+              <ul style='display:block'>
+              </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- 
+ <li class='movie_facets'><a href="#">Movie</a>
+  <ul>
+  </ul>
+</li>
+<li class='artist_facets'><a href="#">Artist</a>
+  <ul>
+  </ul>
+</li> -->

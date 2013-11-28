@@ -1,0 +1,28 @@
+<div>
+  <table>
+	<h2>Similar type of artists for :</h2>
+	<th>Artist</th>
+	<th>Total Posts</th>
+	<tr style="background-color:#DDDDDD">
+		<td><%= @artist.name%></td>
+		<td id='act<%= @artist.id %>'><%= @artist.total_posts %></td>
+	</tr>
+  </table>
+</div>
+<div>
+<table>
+	<h2>suggestions for duplicate</h2>
+	<th>Artist</th>
+	<th>Total Posts</th>
+	<th>Swap And Delete</th>
+	<% @duplicate.each do|d| %>
+  	   <tr id='dup<%= d.id %>' class="dup" style="background-color:<%= cycle('#B2D1FF','#DDDDDD')%>;">
+			<td><%= link_to d.name,duplicate_artists_admin_artist_path(:id=>d.id) %></td>
+			<td><%= d.total_posts %></td>
+			<td ><%= button_to "Swap Posts",duplicate_artist_delete_admin_artist_path(:id=>@artist.id,:dartist_id=>d.id),:method=>"post",:remote=>true %></td>
+  	   </tr>	
+		<br/><br/>
+	<% end %>
+</table>
+<a onclick="history.back();">Back</a>
+</div>

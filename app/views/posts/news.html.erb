@@ -1,0 +1,20 @@
+<section id="content">
+    <div id="container" class="transitions-enabled clearfix" style="margin: 0 auto;">
+        <div class='user_id' style='display:none'>
+            <% unless current_user.nil? %>
+                <%= current_user.id %>
+            <% end %>    
+        </div>
+        <% @post.each do |post| %>
+            <% begin %>
+                <%= render :partial => 'posts/post', :locals => {:post => post} %>
+            <% rescue %>
+                <% next %>
+            <% end %>
+        <% end %>
+    </div>
+</section>
+
+<div class="pageless-navigation">
+    <a href="/posts/news?page=2" />
+</div>

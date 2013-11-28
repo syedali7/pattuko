@@ -1,0 +1,8 @@
+
+<% unless @rating.empty? %>
+    <% movie_rating = 0 %>
+    <% @rating.each do|mr| %>
+        <% movie_rating += mr.rating %>
+    <% end %>
+    <p><strong>Rating</strong> : <%= rating = movie_rating/@rating.count %> from <%= @rating.count %> <% if @rating.count == 1 %>user <% else %> users <% end %></p>
+<% end %>        

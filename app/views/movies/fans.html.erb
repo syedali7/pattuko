@@ -1,0 +1,97 @@
+
+
+<div class="fans_tab float_L">
+	<div class="desc_text_box float_L">
+	  	<h2>Super Fan</h2>
+	  	Super fans are the people who have interacted the most with the artist and their content.Being a super fan gives you to access to exclusive content
+		from the artist. The Feature is	still in beta, so stay tuned </br></br>
+		<b style="font-weight:bold">Tip:</b> You have to be a fan to be
+		in the running.
+	</div>
+	<% @count = 0 %>
+	<% @fans.each do|fan|%>
+			
+		<% user = User.find(fan.user_id) %>
+		<% unless user.nil? %>
+			<% @count += 1 %> 
+			<div class="float_L super_fans_list">
+			  <a href="javascript:void(0)">
+				  <span class="fan_item wh142">
+					  <img src="<%= user.image_url%>"width="143" height="143">
+					  <span class="name"><%= user.username %></span>
+				  </span>
+			  </a>
+			</div>
+			<% if @count == 5 %>
+			"+"<div></div>
+			<% @count = 0 %>
+			<% end %>
+		<% end %>	
+	<% end %>	
+	<!--<div class="clearfix"></div>
+	<div class="float_L w100">
+		<h2 class="secondary_header mt0">Related Movies</h2>
+		<div class="float_L super_fans_list ml0">
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+			<a href="#" class="no_mr">
+			<span class="fan_item wh96">
+			<img src="images/super_fan_thumb.png">
+			<span class="name">Fan Name</span>
+			</span>
+			</a>
+		</div>	
+	</div>-->
+</div>
+
+
+
+
+	
+	

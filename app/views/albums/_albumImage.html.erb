@@ -1,0 +1,12 @@
+<% album = Album.find(post.postable_id) %>
+<% image = Image.find(album.cover_image_id) %>
+<% unless image.nil? %>
+    <p class="image-area"
+    	id="post-<%= post.id %>"
+    	style="height: <%= image.thumb_height %>px;">
+    	<%= link_to image_tag(asset_path("lazy_img_load.gif"), 
+    	:class => 'lazy',
+    	:data => {"original" => image.image.url(:thumb).to_s}), post_path(post) %>
+    	<a href="<%=post_path(post)%>"><span class="pt_album_icon"></span></a>
+    </p>
+<% end %>

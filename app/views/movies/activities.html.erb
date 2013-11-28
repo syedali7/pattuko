@@ -1,0 +1,17 @@
+<% unless @posts.nil?%>
+	<section id="content">
+    	<div id="container" class="container transitions-enabled clearfix" style="margin: 0 auto;">
+    		<% @posts.each do |post| %>
+                <%#cache(post) do %>
+                    <% begin %>
+                        <%= render :partial => 'posts/post', :locals => {:post => post} %>
+                    <% rescue %>
+                        <% next %>
+                    <% end %>
+                <%# end %>
+            <% end %>
+		</div>
+	</section>
+<% else %>
+	<h2>no posts</h2>	
+<% end %>		

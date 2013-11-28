@@ -1,0 +1,196 @@
+<% post = @post %>
+<% movie = @movie %>
+<% artist = @artist %>
+
+<% if post.posting_type == "Event" %>
+    <% event = Event.find(post.posting_id) %>
+<% end %>
+
+
+<!-- for displaying the artist or movie image in the side dropdown -->
+<figure class="float_L">
+    <% if post.posting_type == "Movie" %>
+        <a href="<%= movie_path(movie)%>"><img src="<%= movie.movie_image.url(:thumb) %>" width="80" height="80" alt="Profile Image"></a>
+    <% elsif post.posting_type == "Artist" %>
+        <a href="<%= artist_path(artist)%>"><img src="<%= artist.artist_profile_image.url(:thumb) %>" 
+            width="80" height="80" alt="Profile Image"></a>
+    <% elsif post.posting_type == "Event" %>
+        <% if event.eventable_type == "Movie" %>
+            <a href="<%= movie_path(movie)%>"><img src="<%= movie.movie_image.url(:thumb) %>" width="80" height="80" 
+                alt="Profile Image"></a>
+        <% elsif event.eventable_type == "Artist" %>
+            <a href="<%= artist_path(artist)%>"><img src="<%= artist.artist_profile_image.url(:thumb) %>"
+             width="80"  height="80" alt="Profile Image"></a>
+        <% end %>
+    <% end %>
+</figure>
+
+<!-- for displaying the artist or movie name in the side dropdown -->
+
+<p class="float_L" id="fans-count-<%= post.id %>" >
+    <% if post.posting_type == "Movie" %>
+        <strong><a href = "<%= movie_path(movie)%>"><%= movie.name %></a></strong><br/>
+        <%= pluralize( movie.fans.count, 'Fan') %>
+    <% elsif post.posting_type == "Artist" %>
+        <strong><a href="<%= artist_path(artist) %>"><%= artist.name %></strong><br/>
+        <%= pluralize( artist.fans.count, 'Fan') %>
+    <% elsif post.posting_type == "Event" %>
+        <% if event.eventable_type == "Movie" %>
+            <strong><a href = "<%= movie_path(movie)%>"><%= movie.name %></a></strong><br/>
+            <%= pluralize( movie.fans.count, 'Fan') %>
+        <% elsif event.eventable_type == "Artist" %>
+            <strong><a href="<%= artist_path(artist) %>"><%= artist.name %></strong><br/>
+            <%= pluralize( artist.fans.count, 'Fan') %>
+        <% end %>
+    <% end %>
+</p>
+
+<!-- for the user fan button -->
+<% if current_user %>
+    <% if post.posting_type == "Movie" %>
+        <% if movie.fans.collect(&:user_id).include?(current_user.id) %>
+        <% else %>
+            <input class="float_L cmn_btn" 
+                id="fan-follow_<%= post.id %>" type="submit" value="I'm Fan">
+        <% end %>
+    <% elsif post.posting_type == "Artist" %>
+        <% if artist.fans.collect(&:user_id).include?(current_user.id) %>
+        <% else %>
+            <input class="float_L cmn_btn"
+            id="fan-follow_<%= post.id %>" type="submit" value="I'm Fan">
+        <% end %>
+    <% elsif post.posting_type == "Event" %>
+        <% if event.eventable_type == "Movie" %>
+            <% if movie.fans.collect(&:user_id).include?(current_user.id) %>
+            <% else %>
+                <input class="float_L cmn_btn" 
+                    id="fan-follow_<%= post.id %>" type="submit" value="I'm Fan">
+            <% end %>
+        <% elsif event.eventable_type == "Artist" %>
+            <% if artist.fans.collect(&:user_id).include?(current_user.id) %>
+            <% else %>
+                <input class="float_L cmn_btn"
+                id="fan-follow_<%= post.id %>" type="submit" value="I'm Fan">
+            <% end %>
+        <% end %>
+    <% end %>
+<% else %>
+    <a href="<%=user_omniauth_authorize_path(:facebook)%>">
+        <input class="float_L cmn_btn" type="submit" value="I'm Fan">
+    </a>
+<% end %>
+
+<div class="clearfix"></div>
+<div class="movie_circle_inner_lft_btm">
+
+    <% if post.posting_type == "Movie" %>
+        <% unless Movie.find(movie.id).fans.empty? %>
+            <p>Super Fans</p>
+            <figure>
+                <% Movie.find(movie.id).fans.first(6).each do |fan| %>
+                    <% unless fan.nil? %>
+                        <% begin %>
+                            <% user = User.find(fan.user_id) %>
+                            <% unless user.nil? %>
+                                <a href="<%= user_path(user) %>">
+                                    <img src="<%= user.image_url%>" width="30" height="30" 
+                                        alt="Profile Image" />
+                                </a>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </figure>
+            <div class="movie_affinity pos_rel">
+                <div class="movie_affinity_inner">
+                    <span class="float_L"></span>
+                    <span class="float_L" style="margin-left:-20px;"></span>
+                </div>
+                <p>20% Affinity</p>
+            </div>
+        <% end %>
+    <% elsif post.posting_type == "Artist" %>
+        <% unless Artist.find(artist.id).fans.empty? %>
+            <p>Super Fans</p>
+            <figure>
+                <% Artist.find(artist.id).fans.first(6).each do |fan| %>
+                    <% unless fan.nil? %>
+                        <% unless fan.user_id.nil? %>
+                            <% user = User.find(fan.user_id) %>
+                            <% unless user.nil? %>
+                                <a href="<%= user_path(user) %>">
+                                    <img src="<%= user.image_url%>" width="30" height="30" 
+                                        alt="Profile Image" />
+                                </a>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </figure>
+            <div class="movie_affinity pos_rel">
+                <div class="movie_affinity_inner">
+                    <span class="float_L"></span>
+                    <span class="float_L" style="margin-left:-20px;"></span>
+                </div>
+                <p>20% Affinity</p>
+            </div>
+        <% end %>
+    <% elsif post.posting_type == "Event" %>
+        <% if event.eventable_type == "Movie" %>
+            <% unless Movie.find(movie.id).fans.empty? %>
+                <p>Super Fans</p>
+                <figure>
+                    <% Movie.find(movie.id).fans.first(6).each do |fan| %>
+                        <% unless fan.nil? %>
+                            <% user = User.find(fan.user_id) %>
+                            <% unless user.nil? %>
+                                <a href="<%= user_path(user) %>">
+                                    <img src="<%= user.image_url%>" width="30" height="30" 
+                                        alt="Profile Image" />
+                                </a>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                </figure>
+                <div class="movie_affinity pos_rel">
+                    <div class="movie_affinity_inner">
+                        <span class="float_L"></span>
+                        <span class="float_L" style="margin-left:-20px;"></span>
+                    </div>
+                    <p>20% Affinity</p>
+                </div>
+            <% end %>
+        <% elsif event.eventable_type == "Artist" %>
+            <% unless Artist.find(artist.id).fans.empty? %>
+                <p>Super Fans</p>
+                <figure>
+                    <% Artist.find(artist.id).fans.first(6).each do |fan| %>
+                        <% unless fan.nil? %>
+                            <% user = User.find(fan.user_id) %>
+                            <% unless user.nil? %>
+                                <a href="<%= user_path(user) %>">
+                                    <img src="<%= user.image_url%>" width="30" height="30" 
+                                        alt="Profile Image" />
+                                </a>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                </figure>
+                <div class="movie_affinity pos_rel">
+                    <div class="movie_affinity_inner">
+                        <span class="float_L"></span>
+                        <span class="float_L" style="margin-left:-20px;"></span>
+                    </div>
+                    <p>20% Affinity</p>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+    <!-- <span class="movie_bdr"> </span> -->
+</div>
+
+<%# if session[:admin] %>
+    <!-- <li> -->
+        <%#= link_to "Delete", post_path(post.id), :method => :delete, :confirm => "are u sure?" %>
+    <!-- </li> -->
+<%# end %>

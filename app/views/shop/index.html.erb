@@ -1,0 +1,34 @@
+<section id="content">
+    <div id="shop-container" class="container transitions-enabled clearfix" style="margin: 0 auto;">
+        <ul class="artists_items" style="margin: 0 auto;">
+            <% @styles.each do |style| %>
+                <li class="shop-box" style="height: <%= style.thumb_height %>px;" data-id = "<%= style.id %>">
+                    <a class="overlay animation_class" href="<%= shop_path(style) %>"></a>
+                    <%= link_to image_tag(asset_path("lazy_img_load.gif"),
+                    :class => 'lazy',
+                    :style => "height: #{style.thumb_height}px;",
+                    :data => {"original" => style.image.url(:medium).to_s}), shop_path(style) %>
+                    <div class="movie_desc animation_class">
+                        <p class="movie"><%= style.title %></p>
+                        <span>
+                            <a href="" class="cmn_link">claps <%= style.claps.count %></a>
+                            <a href="" class="cmn_link">Views 5</a>
+                            <a href="" class="cmn_link">Fans 5</a>
+
+                            <!-- admin edit style starts -->
+                            <% if session[:admin] %>
+                                <%= link_to 'style edit', style_update_render_shop_path(:id => style.id),
+                                target: "_blank" %>
+                            <% end %>
+                            <!-- admin edit style ends -->
+
+                        </span>
+                        <a href="<%= shop_path(style) %>">
+                            <input type="button" class="cmn_btn float_R" value="Shop Now">
+                        </a>
+                    </div>
+                </li> 
+            <% end %>
+        </ul>
+    </div>
+</section>
